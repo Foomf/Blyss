@@ -38,5 +38,12 @@ int main()
         return EXIT_FAILURE;
     }
 
+    while(!glfwWindowShouldClose(window.get()))
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glfwSwapBuffers(window.get());
+        glfwPollEvents();
+    }
+
     return EXIT_SUCCESS;
 }
