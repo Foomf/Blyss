@@ -27,9 +27,11 @@ include_directories(${GLAD_DIR}/include)
 
 set(SRCS
     ${SRC_DIR}/main.cpp
+    ${SRC_DIR}/GlfwState.cpp
 )
 
 set (HDRS
+    ${HDR_DIR}/GlfwState.hpp
 )
 
 add_executable(${PROG_NAME} ${SRCS} ${HDRS})
