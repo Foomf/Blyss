@@ -9,10 +9,17 @@ project (${PROG_NAME})
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(GLAD_DIR lib/glad)
+set(GLAD_DEBUG OFF CACHE BOOL "")
+if(${GLAD_DEBUG})
+    set(GLAD_DIR lib/glad/debug)
+else()
+    set(GLAD_DIR lib/glad/release)
+endif()
+
 set(IMGUI_DIR lib/imgui)
 
 add_subdirectory(lib/glfw)
+
 
 add_library(glad 
     ${GLAD_DIR}/src/glad.c

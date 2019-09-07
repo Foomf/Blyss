@@ -3,13 +3,13 @@
 #include <sstream>
 
 #include "gl_exception.hpp"
+#include <iostream>
 
 namespace gl_err
 {
-
-    void check_gl_state()
+    void post_call_callback(const char* name, void* funcptr, int len_args, ...)
     {
-        auto error = glGetError();
+        auto error = glad_glGetError();
         if (error == GL_NO_ERROR)
         {
             return;
@@ -17,13 +17,13 @@ namespace gl_err
 
         std::stringstream message;
         message << "Error: " << to_string(error);
-        while (error = glGetError(), error != GL_NO_ERROR)
+        while (error = glad_glGetError(), error != GL_NO_ERROR)
         {
             message << to_string(error);
         }
         const auto text = message.str();
         const auto error_message = text.substr(0, text.size() - 2);
-        //throw gl_exception(error_message);
+        throw gl_exception(error_message);
     }
 
     std::string to_string(const GLenum error)

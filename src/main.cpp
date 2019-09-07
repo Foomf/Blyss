@@ -47,6 +47,10 @@ int main()
         return EXIT_FAILURE;
     }
 
+#ifdef GLAD_DEBUG
+    glad_set_post_callback(gl_err::post_call_callback);
+#endif
+
     std::cout << "OpenGL Version " << GLVersion.major << "." << GLVersion.minor << " loaded.\n";
 
     IMGUI_CHECKVERSION();
@@ -107,10 +111,10 @@ int main()
         ImGui::Render();
         int display_w, display_h;
         glfwGetFramebufferSize(window.get(), &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h); GL_CHECK();
-        glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w); GL_CHECK();
-        glClear(GL_COLOR_BUFFER_BIT); GL_CHECK();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData()); GL_CHECK();
+        glViewport(0, 0, display_w, display_h);
+        glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+        glClear(GL_COLOR_BUFFER_BIT);
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window.get());
     }
