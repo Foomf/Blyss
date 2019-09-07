@@ -4,16 +4,16 @@
 
 GlfwState::GlfwState()
 {
-	_is_success = glfwInit();
+    _is_success = glfwInit();
 }
 
 GlfwState::~GlfwState()
 {
-	glfwTerminate();
+    glfwTerminate();
 }
 
 bool GlfwState::is_success() const
 {
-	return _is_success;
+    return _is_success;
 }
 
