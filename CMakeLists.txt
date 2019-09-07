@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(GLAD_DIR lib/glad)
+set(IMGUI_DIR lib/imgui)
 
 add_subdirectory(lib/glfw)
 
@@ -19,13 +20,32 @@ add_library(glad
     ${GLAD_DIR}/include/KHR/khrplatform.h
 )
 
+add_library(imgui
+    ${IMGUI_DIR}/imconfig.h
+    ${IMGUI_DIR}/imgui_internal.h
+    ${IMGUI_DIR}/imgui.h
+    ${IMGUI_DIR}/imstb_rectpack.h
+    ${IMGUI_DIR}/imstb_textedit.h
+    ${IMGUI_DIR}/imstb_truetype.h
+    ${IMGUI_DIR}/imgui_demo.cpp
+    ${IMGUI_DIR}/imgui_draw.cpp
+    ${IMGUI_DIR}/imgui_widgets.cpp
+    ${IMGUI_DIR}/imgui.cpp
+)
+
+add_compile_definitions(IMGUI_IMPL_OPENGL_LOADER_GLAD)
+
 set(HDR_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 include_directories(${HDR_DIR})
 include_directories(${GLAD_DIR}/include)
+include_Directories(${IMGUI_DIR})
+include_Directories(${IMGUI_DIR}/examples)
 
 set(SRCS
+    ${IMGUI_DIR}/examples/imgui_impl_glfw.cpp
+    ${IMGUI_DIR}/examples/imgui_impl_opengl3.cpp
     ${SRC_DIR}/main.cpp
     ${SRC_DIR}/GlfwState.cpp
     ${SRC_DIR}/gl_exception.cpp
@@ -33,6 +53,8 @@ set(SRCS
 )
 
 set (HDRS
+    ${IMGUI_DIR}/examples/imgui_impl_glfw.h
+    ${IMGUI_DIR}/examples/imgui_impl_opengl3.h
     ${HDR_DIR}/GlfwState.hpp
     ${HDR_DIR}/gl_exception.hpp
     ${HDR_DIR}/gl_error.hpp
@@ -41,3 +63,4 @@ set (HDRS
 add_executable(${PROG_NAME} ${SRCS} ${HDRS})
 target_link_libraries(${PROG_NAME} glad)
 target_link_libraries(${PROG_NAME} glfw)
+target_link_libraries(${PROG_NAME} imgui)

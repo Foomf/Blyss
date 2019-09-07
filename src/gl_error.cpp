@@ -23,7 +23,7 @@ namespace gl_err
         }
         const auto text = message.str();
         const auto error_message = text.substr(0, text.size() - 2);
-        throw gl_exception(error_message);
+        //throw gl_exception(error_message);
     }
 
     std::string to_string(const GLenum error)
