@@ -24,15 +24,13 @@ int main()
     }
 
 #ifdef __APPLE__
-    auto glsl_version = "#version 150";
+    const auto glsl_version = "#version 150";
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #else
-    auto glsl_version = "#version 130";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    const auto glsl_version = "#version 130";
 #endif
 
     const glfw_window_ptr window(glfwCreateWindow(800, 600, "Thimble", nullptr, nullptr), glfwDestroyWindow);
