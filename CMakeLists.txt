@@ -28,10 +28,14 @@ include_directories(${GLAD_DIR}/include)
 set(SRCS
     ${SRC_DIR}/main.cpp
     ${SRC_DIR}/GlfwState.cpp
+    ${SRC_DIR}/gl_exception.cpp
+    ${SRC_DIR}/gl_error.cpp
 )
 
 set (HDRS
     ${HDR_DIR}/GlfwState.hpp
+    ${HDR_DIR}/gl_exception.hpp
+    ${HDR_DIR}/gl_error.hpp
 )
 
 add_executable(${PROG_NAME} ${SRCS} ${HDRS})

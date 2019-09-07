@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 
 #include "GlfwState.hpp"
+#include "gl_error.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -40,7 +41,7 @@ int main()
 
     while(!glfwWindowShouldClose(window.get()))
     {
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT); GL_CHECK();
         glfwSwapBuffers(window.get());
         glfwPollEvents();
     }
