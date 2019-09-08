@@ -4,6 +4,10 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 set(SHADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/shaders CACHE PATH "Shaders folder")
 
+if(WIN32)
+    set(HIDE_CONSOLE ON CACHE BOOL "")
+endif()
+
 cmake_minimum_required(VERSION 2.8.12)
 set(PROG_NAME Thimble)
 project (${PROG_NAME})
@@ -20,6 +24,7 @@ endif()
 
 set(IMGUI_DIR lib/imgui)
 set(GLM_DIR lib/glm)
+set(SPDLOG_DIR lib/spdlog)
 
 add_subdirectory(lib/glfw)
 
@@ -53,6 +58,7 @@ include_directories(${GLAD_DIR}/include)
 include_directories(${IMGUI_DIR})
 include_directories(${IMGUI_DIR}/examples)
 include_directories(${GLM_DIR})
+include_directories(${SPDLOG_DIR}/include)
 
 set(SRCS
     ${IMGUI_DIR}/examples/imgui_impl_glfw.cpp
@@ -81,7 +87,12 @@ set (HDRS
     ${HDR_DIR}/element_array_buffer.hpp
 )
 
+if(HIDE_CONSOLE)
+add_compile_definitions(HIDE_CONSOLE)
 add_executable(${PROG_NAME} WIN32 ${SRCS} ${HDRS})
+else()
+add_executable(${PROG_NAME} ${SRCS} ${HDRS})
+endif()
 target_link_libraries(${PROG_NAME} glad)
 target_link_libraries(${PROG_NAME} glfw)
 target_link_libraries(${PROG_NAME} imgui)

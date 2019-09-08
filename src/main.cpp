@@ -21,7 +21,7 @@
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
-#ifdef _WIN32
+#if defined(_WIN32) && defined(HIDE_CONSOLE)
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 #else
 int main()
