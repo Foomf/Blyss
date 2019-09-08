@@ -2,7 +2,7 @@
 
 vertex_buffer_object::vertex_buffer_object(const std::vector<float>& data, std::uint32_t stride, GLenum usage)
     : vbo_ { make_vbo() }
-    , size_ { data.size() / stride }
+    , size_ { static_cast<decltype(size_)>(data.size()) / stride }
 {
     bind();
     glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), usage);
