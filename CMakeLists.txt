@@ -64,8 +64,6 @@ set(SRCS
     ${SRC_DIR}/vertex_buffer_object.cpp
     ${SRC_DIR}/vertex_array_object.cpp
     ${SRC_DIR}/element_array_buffer.cpp
-    ${SRC_DIR}/mat_fac.cpp
-    ${SRC_DIR}/mesh.cpp
 )
 
 set (HDRS
@@ -79,9 +77,6 @@ set (HDRS
     ${HDR_DIR}/vertex_buffer_object.hpp
     ${HDR_DIR}/vertex_array_object.hpp
     ${HDR_DIR}/element_array_buffer.hpp
-    ${HDR_DIR}/matrix.hpp
-    ${HDR_DIR}/mat_fac.hpp
-    ${HDR_DIR}/mesh.hpp
 )
 
 add_executable(${PROG_NAME} WIN32 ${SRCS} ${HDRS})

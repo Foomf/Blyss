@@ -18,8 +18,6 @@
 #include "gl_error.hpp"
 #include "shader_build_exception.hpp"
 #include "shader.hpp"
-#include "mat_fac.hpp"
-#include "mesh.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -84,28 +82,8 @@ int main()
     auto model_uniform = program->get_uniform("model");
     auto ortho_uniform = program->get_uniform("ortho");
 
-    auto ortho = mat_fac::orthographic(-1.0f * (width / height), 1.0f * (width / height), -1, 1, -1, 1);
-
     //auto show_demo_window = true;
     const auto clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-    auto view_x = 0.0f;
-    auto view_y = 0.0f;
-
-    auto identity = matrix<3>::identity();
-
-    float color[3] = { 1.0, 0.0, 1.0 };
-
-    std::vector<float> vertices = {
-        -0.5f, -0.5F,
-        0.5f, -0.5f,
-        0.0f, 0.5f
-    };
-
-    auto m = std::make_unique<mesh>(vertices, 2, GL_STATIC_DRAW);
-
-    auto pos_attr = program->get_attrib_loc("aPos");
-    m->config_attribute(pos_attr, 2, 0);
 
     while(!glfwWindowShouldClose(window.get()))
     {
@@ -124,17 +102,6 @@ int main()
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        glUniformMatrix4fv(ortho_uniform, 1, GL_TRUE, ortho.get_ptr());
-
-        auto view = mat_fac::translate(view_x, view_y);
-        glUniformMatrix3fv(view_uniform, 1, GL_TRUE, view.get_ptr());
-
-        glUniformMatrix3fv(model_uniform, 1, GL_TRUE, identity.get_ptr());
-
-        glUniform3fv(color_uniform, 1, color);
-
-        m->draw();
 
         //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
