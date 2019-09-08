@@ -69,12 +69,12 @@ int main()
 
     std::cout << "OpenGL Version " << GLVersion.major << "." << GLVersion.minor << " loaded.\n";
 
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui::StyleColorsDark();
+    //IMGUI_CHECKVERSION();
+    //ImGui::CreateContext();
+    //ImGui::StyleColorsDark();
 
-    ImGui_ImplGlfw_InitForOpenGL(window.get(), true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
+    //ImGui_ImplGlfw_InitForOpenGL(window.get(), true);
+    //ImGui_ImplOpenGL3_Init(glsl_version);
 
     const auto program = std::make_unique<shader>("shader", "FragColor");
     program->use();
@@ -86,7 +86,7 @@ int main()
 
     auto ortho = mat_fac::orthographic(-1.0f * (width / height), 1.0f * (width / height), -1, 1, -1, 1);
 
-    auto show_demo_window = true;
+    //auto show_demo_window = true;
     const auto clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     auto view_x = 0.0f;
@@ -111,14 +111,14 @@ int main()
     {
         glfwPollEvents();
 
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+        //ImGui_ImplOpenGL3_NewFrame();
+        //ImGui_ImplGlfw_NewFrame();
+        //ImGui::NewFrame();
 
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
+        //if (show_demo_window)
+        //    ImGui::ShowDemoWindow(&show_demo_window);
 
-        ImGui::Render();
+        //ImGui::Render();
         int display_w, display_h;
         glfwGetFramebufferSize(window.get(), &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
@@ -136,14 +136,14 @@ int main()
 
         m->draw();
 
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window.get());
     }
 
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    //ImGui_ImplOpenGL3_Shutdown();
+    //ImGui_ImplGlfw_Shutdown();
+    //ImGui::DestroyContext();
 
     return EXIT_SUCCESS;
 }
