@@ -61,6 +61,7 @@ set(SRCS
     ${SRC_DIR}/gl_error.cpp
     ${SRC_DIR}/shader_build_exception.cpp
     ${SRC_DIR}/shader.cpp
+    ${SRC_DIR}/vertex_buffer_object.cpp
 )
 
 set (HDRS
@@ -71,6 +72,7 @@ set (HDRS
     ${HDR_DIR}/gl_error.hpp
     ${HDR_DIR}/shader_build_exception.hpp
     ${HDR_DIR}/shader.hpp
+    ${HDR_DIR}/vertex_buffer_object.hpp
 )
 
 add_executable(${PROG_NAME} WIN32 ${SRCS} ${HDRS})
