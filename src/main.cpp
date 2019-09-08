@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <memory>
+#include <vector>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -18,6 +19,7 @@
 #include "shader_build_exception.hpp"
 #include "shader.hpp"
 #include "mat_fac.hpp"
+#include "mesh.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -92,6 +94,19 @@ int main()
 
     auto identity = matrix<3>::identity();
 
+    float color[3] = { 1.0, 0.0, 1.0 };
+
+    std::vector<float> vertices = {
+        -0.5f, -0.5F,
+        0.5f, -0.5f,
+        0.0f, 0.5f
+    };
+
+    auto m = std::make_unique<mesh>(vertices, 2, GL_STATIC_DRAW);
+
+    auto pos_attr = program->get_attrib_loc("aPos");
+    m->config_attribute(pos_attr, 2, 0);
+
     while(!glfwWindowShouldClose(window.get()))
     {
         glfwPollEvents();
@@ -116,6 +131,10 @@ int main()
         glUniformMatrix3fv(view_uniform, 1, GL_TRUE, view.get_ptr());
 
         glUniformMatrix3fv(model_uniform, 1, GL_TRUE, identity.get_ptr());
+
+        glUniform3fv(color_uniform, 1, color);
+
+        m->draw();
 
         //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
