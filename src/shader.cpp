@@ -2,24 +2,25 @@
 
 #include <sstream>
 #include <fstream>
+#include <utility>
 
 #include "shader_build_exception.hpp"
 
-shader::shader(const std::string& shader_name, const std::string& frag_output)
+shader::shader(std::string shader_name, const std::string& frag_output)
     : shader_program_ { make_program() }
-    , shader_name_ { shader_name }
+    , shader_name_ {std::move(shader_name)}
 {
     compile(frag_output);
-}
-
-GLuint shader::make_program() const
-{
-    return glCreateProgram();
 }
 
 shader::~shader()
 {
     glDeleteProgram(shader_program_);
+}
+
+GLuint shader::make_program()
+{
+    return glCreateProgram();
 }
 
 void shader::use() const
@@ -32,12 +33,12 @@ GLint shader::get_uniform(const std::string& uniform_name) const
     return glGetUniformLocation(shader_program_, uniform_name.c_str());
 }
 
-GLuint shader::make_shader(GLenum shaderType) const
+GLuint shader::make_shader(GLenum shader_type) const
 {
     std::stringstream shader_path_stream;
     shader_path_stream << "../shaders/" << shader_name_ << ".";
 
-    switch (shaderType)
+    switch (shader_type)
     {
     case GL_VERTEX_SHADER:
         shader_path_stream << "vert";
@@ -60,7 +61,7 @@ GLuint shader::make_shader(GLenum shaderType) const
     auto str = buffer.str();
     auto source = str.c_str();
 
-    GLuint shader = glCreateShader(shaderType);
+    auto shader = glCreateShader(shader_type);
     glShaderSource(shader, 1, &source, nullptr);
     glCompileShader(shader);
 
@@ -68,9 +69,9 @@ GLuint shader::make_shader(GLenum shaderType) const
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if (!success)
     {
-        char infoLog[512];
-        glGetShaderInfoLog(shader, sizeof(infoLog), nullptr, infoLog);
-        throw shader_build_exception("Failed to compile shader!", infoLog, shader_path);
+        char info_log[512];
+        glGetShaderInfoLog(shader, sizeof(info_log), nullptr, info_log);
+        throw shader_build_exception("Failed to compile shader!", info_log, shader_path);
     }
 
     return shader;
@@ -78,8 +79,8 @@ GLuint shader::make_shader(GLenum shaderType) const
 
 void shader::compile(const std::string& frag_output) const
 {
-    auto vert_shader = make_shader(GL_VERTEX_SHADER);
-    auto frag_shader = make_shader(GL_FRAGMENT_SHADER);
+    const auto vert_shader = make_shader(GL_VERTEX_SHADER);
+    const auto frag_shader = make_shader(GL_FRAGMENT_SHADER);
 
     glAttachShader(shader_program_, vert_shader);
     glAttachShader(shader_program_, frag_shader);
@@ -89,9 +90,9 @@ void shader::compile(const std::string& frag_output) const
     glGetProgramiv(shader_program_, GL_LINK_STATUS, &success);
     if (!success)
     {
-        char infoLog[512];
-        glGetProgramInfoLog(shader_program_, sizeof(infoLog), nullptr, infoLog);
-        throw shader_build_exception("Failed to link shader program!", infoLog, shader_name_);
+        char info_log[512];
+        glGetProgramInfoLog(shader_program_, sizeof(info_log), nullptr, info_log);
+        throw shader_build_exception("Failed to link shader program!", info_log, shader_name_);
     }
 
     glDeleteShader(vert_shader);
@@ -102,6 +103,3 @@ GLint shader::get_attrib_loc(const std::string& attr_name) const
 {
     return glGetAttribLocation(shader_program_, attr_name.c_str());
 }
-
-
-

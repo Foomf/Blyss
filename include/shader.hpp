@@ -8,15 +8,17 @@ class shader
     GLuint shader_program_;
     std::string shader_name_;
 
-    GLuint make_shader(GLenum shaderType) const;
+    GLuint make_shader(GLenum shader_type) const;
     GLuint make_program() const;
 
 public:
     shader(const std::string& shader_name, const std::string& frag_output);
-    shader(const shader&) = delete;
     ~shader();
 
+    shader(const shader&) = delete;
+    shader(shader&&) = delete;
     shader& operator=(const shader&) = delete;
+    shader& operator=(shader&&) = delete;
 
     void compile(const std::string& frag_output) const;
     void use() const;
