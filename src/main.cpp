@@ -17,6 +17,7 @@
 #include "gl_error.hpp"
 #include "shader_build_exception.hpp"
 #include "shader.hpp"
+#include "mat_fac.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -43,7 +44,10 @@ int main()
     const auto glsl_version = "#version 130";
 #endif
 
-    const glfw_window_ptr window(glfwCreateWindow(800, 600, "Thimble", nullptr, nullptr), glfwDestroyWindow);
+    auto width = 800;
+    auto height = 600;
+
+    const glfw_window_ptr window(glfwCreateWindow(width, height, "Thimble", nullptr, nullptr), glfwDestroyWindow);
     if(!window)
     {
         return EXIT_FAILURE;
@@ -73,8 +77,20 @@ int main()
     const auto program = std::make_unique<shader>("shader", "FragColor");
     program->use();
 
+    auto color_uniform = program->get_uniform("color");
+    auto view_uniform = program->get_uniform("view");
+    auto model_uniform = program->get_uniform("model");
+    auto ortho_uniform = program->get_uniform("ortho");
+
+    auto ortho = mat_fac::orthographic(-1.0f * (width / height), 1.0f * (width / height), -1, 1, -1, 1);
+
     //auto show_demo_window = true;
     const auto clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+    auto view_x = 0.0f;
+    auto view_y = 0.0f;
+
+    auto identity = matrix<3>::identity();
 
     while(!glfwWindowShouldClose(window.get()))
     {
@@ -93,6 +109,14 @@ int main()
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glUniformMatrix4fv(ortho_uniform, 1, GL_TRUE, ortho.get_ptr());
+
+        auto view = mat_fac::translate(view_x, view_y);
+        glUniformMatrix3fv(view_uniform, 1, GL_TRUE, view.get_ptr());
+
+        glUniformMatrix3fv(model_uniform, 1, GL_TRUE, identity.get_ptr());
+
         //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window.get());
