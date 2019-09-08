@@ -77,6 +77,7 @@ set (HDRS
     ${HDR_DIR}/vertex_buffer_object.hpp
     ${HDR_DIR}/vertex_array_object.hpp
     ${HDR_DIR}/element_array_buffer.hpp
+    ${HDR_DIR}/matrix.hpp
 )
 
 add_executable(${PROG_NAME} WIN32 ${SRCS} ${HDRS})
