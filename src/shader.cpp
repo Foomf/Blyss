@@ -36,7 +36,7 @@ GLint shader::get_uniform(const std::string& uniform_name) const
 GLuint shader::make_shader(GLenum shader_type) const
 {
     std::stringstream shader_path_stream;
-    shader_path_stream << "../shaders/" << shader_name_ << ".";
+    shader_path_stream << SHADER_DIR << "/" << shader_name_ << ".";
 
     switch (shader_type)
     {

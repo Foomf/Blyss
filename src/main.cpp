@@ -15,6 +15,8 @@
 #include "imgui_impl_opengl3.h"
 #include "glfw_state.hpp"
 #include "gl_error.hpp"
+#include "shader_build_exception.hpp"
+#include "shader.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -67,6 +69,9 @@ int main()
 
     ImGui_ImplGlfw_InitForOpenGL(window.get(), true);
     ImGui_ImplOpenGL3_Init(glsl_version);
+
+    const auto program = std::make_unique<shader>("shader", "FragColor");
+    program->use();
 
     auto show_demo_window = true;
     const auto clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);

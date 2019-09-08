@@ -2,6 +2,8 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
+set(SHADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/shaders CACHE PATH "Shaders folder")
+
 cmake_minimum_required(VERSION 2.8.12)
 set(PROG_NAME Thimble)
 project (${PROG_NAME})
@@ -19,7 +21,6 @@ endif()
 set(IMGUI_DIR lib/imgui)
 
 add_subdirectory(lib/glfw)
-
 
 add_library(glad 
     ${GLAD_DIR}/src/glad.c
@@ -41,6 +42,7 @@ add_library(imgui
 )
 
 add_compile_definitions(IMGUI_IMPL_OPENGL_LOADER_GLAD)
+add_compile_definitions(SHADER_DIR="${SHADER_DIR}")
 
 set(HDR_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
