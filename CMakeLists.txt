@@ -57,6 +57,7 @@ set(SRCS
     ${SRC_DIR}/glfw_state.cpp
     ${SRC_DIR}/gl_exception.cpp
     ${SRC_DIR}/gl_error.cpp
+    ${SRC_DIR}/shader_build_exception.cpp
 )
 
 set (HDRS
@@ -65,6 +66,7 @@ set (HDRS
     ${HDR_DIR}/glfw_state.hpp
     ${HDR_DIR}/gl_exception.hpp
     ${HDR_DIR}/gl_error.hpp
+    ${HDR_DIR}/shader_build_exception.hpp
 )
 
 add_executable(${PROG_NAME} WIN32 ${SRCS} ${HDRS})
