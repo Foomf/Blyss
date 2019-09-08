@@ -63,6 +63,7 @@ set(SRCS
     ${SRC_DIR}/shader.cpp
     ${SRC_DIR}/vertex_buffer_object.cpp
     ${SRC_DIR}/vertex_array_object.cpp
+    ${SRC_DIR}/element_array_buffer.cpp
 )
 
 set (HDRS
@@ -75,6 +76,7 @@ set (HDRS
     ${HDR_DIR}/shader.hpp
     ${HDR_DIR}/vertex_buffer_object.hpp
     ${HDR_DIR}/vertex_array_object.hpp
+    ${HDR_DIR}/element_array_buffer.hpp
 )
 
 add_executable(${PROG_NAME} WIN32 ${SRCS} ${HDRS})
