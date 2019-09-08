@@ -2,6 +2,10 @@
 #include <cstdlib>
 #include <memory>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -9,14 +13,18 @@
 
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "GlfwState.hpp"
+#include "glfw_state.hpp"
 #include "gl_error.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
+#ifdef _WIN32
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+#else
 int main()
+#endif
 {
-    const GlfwState glfw_state;
+    const glfw_state glfw_state;
 
     if (!glfw_state.is_success())
     {

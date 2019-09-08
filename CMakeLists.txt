@@ -54,7 +54,7 @@ set(SRCS
     ${IMGUI_DIR}/examples/imgui_impl_glfw.cpp
     ${IMGUI_DIR}/examples/imgui_impl_opengl3.cpp
     ${SRC_DIR}/main.cpp
-    ${SRC_DIR}/GlfwState.cpp
+    ${SRC_DIR}/glfw_state.cpp
     ${SRC_DIR}/gl_exception.cpp
     ${SRC_DIR}/gl_error.cpp
 )
@@ -62,12 +62,12 @@ set(SRCS
 set (HDRS
     ${IMGUI_DIR}/examples/imgui_impl_glfw.h
     ${IMGUI_DIR}/examples/imgui_impl_opengl3.h
-    ${HDR_DIR}/GlfwState.hpp
+    ${HDR_DIR}/glfw_state.hpp
     ${HDR_DIR}/gl_exception.hpp
     ${HDR_DIR}/gl_error.hpp
 )
 
-add_executable(${PROG_NAME} ${SRCS} ${HDRS})
+add_executable(${PROG_NAME} WIN32 ${SRCS} ${HDRS})
 target_link_libraries(${PROG_NAME} glad)
 target_link_libraries(${PROG_NAME} glfw)
 target_link_libraries(${PROG_NAME} imgui)
