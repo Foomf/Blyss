@@ -12,6 +12,8 @@
 
 #include <imgui.h>
 
+#include <spdlog/spdlog.h>
+
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "glfw_state.hpp"
@@ -65,7 +67,7 @@ int main()
     glad_set_post_callback(gl_err::post_call_callback);
 #endif
 
-    std::cout << "OpenGL Version " << GLVersion.major << "." << GLVersion.minor << " loaded.\n";
+    spdlog::info("OpenGL Version {}.{} loaded.", GLVersion.major, GLVersion.minor);
 
     //IMGUI_CHECKVERSION();
     //ImGui::CreateContext();
