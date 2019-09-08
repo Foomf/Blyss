@@ -19,6 +19,7 @@ else()
 endif()
 
 set(IMGUI_DIR lib/imgui)
+set(GLM_DIR lib/glm)
 
 add_subdirectory(lib/glfw)
 
@@ -49,8 +50,9 @@ set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 include_directories(${HDR_DIR})
 include_directories(${GLAD_DIR}/include)
-include_Directories(${IMGUI_DIR})
-include_Directories(${IMGUI_DIR}/examples)
+include_directories(${IMGUI_DIR})
+include_directories(${IMGUI_DIR}/examples)
+include_directories(${GLM_DIR})
 
 set(SRCS
     ${IMGUI_DIR}/examples/imgui_impl_glfw.cpp
