@@ -1,9 +1,11 @@
 #include "gl_error.hpp"
 
 #include <sstream>
+#include <iostream>
+
+#include <spdlog/spdlog.h>
 
 #include "gl_exception.hpp"
-#include <iostream>
 
 namespace gl_err
 {
@@ -23,7 +25,11 @@ namespace gl_err
         }
         const auto text = message.str();
         const auto error_message = text.substr(0, text.size() - 2);
+#ifdef NDEBUG
+        spdlog::error("Error occurred in {}: {}", name, message);
+#else
         throw gl_exception(error_message);
+#endif
     }
 
     std::string to_string(const GLenum error)

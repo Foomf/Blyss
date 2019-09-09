@@ -20,8 +20,15 @@
 #include "gl_error.hpp"
 #include "shader_build_exception.hpp"
 #include "shader.hpp"
+#include "vertex_buffer_object.hpp"
+#include "square.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
 
 #if defined(_WIN32) && defined(HIDE_CONSOLE)
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
@@ -33,15 +40,17 @@ int main()
 
     if (!glfw_state.is_success())
     {
+        spdlog::critical("Could initialize glfw!");
         return EXIT_FAILURE;
     }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
     const auto glsl_version = "#version 150";
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #else
     const auto glsl_version = "#version 130";
 #endif
@@ -52,14 +61,19 @@ int main()
     const glfw_window_ptr window(glfwCreateWindow(width, height, "Thimble", nullptr, nullptr), glfwDestroyWindow);
     if(!window)
     {
+        spdlog::critical("Could not create glfw window!");
         return EXIT_FAILURE;
     }
 
     glfwMakeContextCurrent(window.get());
+    glfwSetFramebufferSizeCallback(window.get(), framebuffer_size_callback);
+
     glfwSwapInterval(1);
+    spdlog::info("V-sync is enabled.");
 
     if(!gladLoadGL())
     {
+        spdlog::critical("Could not load OpenGL!");
         return EXIT_FAILURE;
     }
 
@@ -69,6 +83,14 @@ int main()
 
     spdlog::info("OpenGL Version {}.{} loaded.", GLVersion.major, GLVersion.minor);
 
+    glViewport(0, 0, width, height);
+
+    std::vector<float> vertices = {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f, 0.5f, 0.0f
+    };
+
     //IMGUI_CHECKVERSION();
     //ImGui::CreateContext();
     //ImGui::StyleColorsDark();
@@ -76,8 +98,10 @@ int main()
     //ImGui_ImplGlfw_InitForOpenGL(window.get(), true);
     //ImGui_ImplOpenGL3_Init(glsl_version);
 
-    const auto program = std::make_unique<shader>("shader", "FragColor");
+    const auto program = std::make_shared<shader>("shader", "FragColor");
     program->use();
+
+    auto s = square(program);
 
     auto color_uniform = program->get_uniform("color");
     auto view_uniform = program->get_uniform("view");
@@ -91,6 +115,11 @@ int main()
     {
         glfwPollEvents();
 
+        if (glfwGetKey(window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        {
+            glfwSetWindowShouldClose(window.get(), true);
+        }
+
         //ImGui_ImplOpenGL3_NewFrame();
         //ImGui_ImplGlfw_NewFrame();
         //ImGui::NewFrame();
@@ -99,11 +128,10 @@ int main()
         //    ImGui::ShowDemoWindow(&show_demo_window);
 
         //ImGui::Render();
-        int display_w, display_h;
-        glfwGetFramebufferSize(window.get(), &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        s.draw();
 
         //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
