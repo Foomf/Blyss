@@ -25,6 +25,7 @@ endif()
 set(IMGUI_DIR lib/imgui)
 set(GLM_DIR lib/glm)
 set(SPDLOG_DIR lib/spdlog)
+set(STB_DIR lib/stb)
 
 add_subdirectory(lib/glfw)
 
@@ -59,6 +60,7 @@ include_directories(${IMGUI_DIR})
 include_directories(${IMGUI_DIR}/examples)
 include_directories(${GLM_DIR})
 include_directories(${SPDLOG_DIR}/include)
+include_directories(${STB_DIR})
 
 set(SRCS
     ${IMGUI_DIR}/examples/imgui_impl_glfw.cpp
