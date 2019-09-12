@@ -8,7 +8,7 @@ if(WIN32)
     set(HIDE_CONSOLE ON CACHE BOOL "")
 endif()
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.12)
 set(PROG_NAME Thimble)
 project (${PROG_NAME})
 
