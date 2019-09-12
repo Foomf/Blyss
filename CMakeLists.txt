@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.12)
+
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -8,7 +10,6 @@ if(WIN32)
     set(HIDE_CONSOLE ON CACHE BOOL "")
 endif()
 
-cmake_minimum_required(VERSION 3.12)
 set(PROG_NAME Thimble)
 project (${PROG_NAME})
 
