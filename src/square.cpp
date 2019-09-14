@@ -28,11 +28,13 @@ square::square(std::shared_ptr<shader> shader)
     glBindVertexArray(vao_);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    
-    glVertexAttribPointer(shader_->get_attrib_loc("aPos"), 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(shader_->get_attrib_loc("aTexCoord"), 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+
+    auto aPosAttrib = shader_->get_attrib_loc("aPos");
+    glVertexAttribPointer(aPosAttrib, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(aPosAttrib);
+    auto aTextCoordAttrib = shader_->get_attrib_loc("aTexCoord");
+    glVertexAttribPointer(aTextCoordAttrib, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(aTextCoordAttrib);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eab_);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
