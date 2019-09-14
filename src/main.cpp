@@ -10,6 +10,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
+
 #include <imgui.h>
 
 #include <spdlog/spdlog.h>
@@ -100,6 +103,8 @@ int main()
 
     const auto program = std::make_shared<shader>("shader", "FragColor");
     program->use();
+
+    glm::mat4 projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
 
     auto s = square(program);
 
