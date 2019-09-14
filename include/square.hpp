@@ -12,6 +12,7 @@ class square
     GLuint vao_ = 0;
     GLuint vbo_ = 0;
     GLuint eab_ = 0;
+    GLuint texture_ = 0;
 
     std::shared_ptr<shader> shader_;
 
