@@ -29,9 +29,14 @@
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
+GLuint proj_uniform = 0;
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    glViewport(0, 0, width, height);
+    //glViewport(0, 0, width, height);
+    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+    //glm::mat4 projection = glm::identity<glm::mat4>();
+    glUniformMatrix4fv(proj_uniform, 1, GL_FALSE, glm::value_ptr(projection));
 }
 
 #if defined(_WIN32) && defined(HIDE_CONSOLE)
@@ -105,7 +110,7 @@ int main()
     const auto program = std::make_shared<shader>("shader", "FragColor");
     program->use();
 
-    auto proj_uniform = program->get_uniform("projection");
+    proj_uniform = program->get_uniform("projection");
     auto view_uniform = program->get_uniform("view");
     auto model_uniform = program->get_uniform("model");
 
