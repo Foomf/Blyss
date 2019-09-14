@@ -25,7 +25,7 @@
 #include "shader_build_exception.hpp"
 #include "shader.hpp"
 #include "vertex_buffer_object.hpp"
-#include "square.hpp"
+#include "sprite.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -110,7 +110,7 @@ int main()
     auto proj_uniform = program->get_uniform("projection");
     glUniformMatrix4fv(proj_uniform, 1, GL_FALSE, glm::value_ptr(projection));
 
-    auto s = square(program);
+    auto s = sprite(program);
 
     auto color_uniform = program->get_uniform("color");
     auto view_uniform = program->get_uniform("view");

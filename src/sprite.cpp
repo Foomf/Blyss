@@ -1,4 +1,4 @@
-#include "square.hpp"
+#include "sprite.hpp"
 #include <utility>
 
 #include <spdlog/spdlog.h>
@@ -6,7 +6,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-square::square(std::shared_ptr<shader> shader)
+sprite::sprite(std::shared_ptr<shader> shader)
     : shader_{std::move(shader)}
 {
     glGenVertexArrays(1, &vao_);
@@ -60,7 +60,7 @@ square::square(std::shared_ptr<shader> shader)
     stbi_image_free(data);
 }
 
-square::~square()
+sprite::~sprite()
 {
     glDeleteTextures(1, &texture_);
     glDeleteBuffers(1, &eab_);
@@ -68,7 +68,7 @@ square::~square()
     glDeleteVertexArrays(1, &vao_);
 }
 
-void square::draw() const
+void sprite::draw() const
 {
     shader_->use();
     glBindVertexArray(vao_);

@@ -75,7 +75,7 @@ set(SRCS
     ${SRC_DIR}/vertex_buffer_object.cpp
     ${SRC_DIR}/vertex_array_object.cpp
     ${SRC_DIR}/element_array_buffer.cpp
-    ${SRC_DIR}/square.cpp
+    ${SRC_DIR}/sprite.cpp
 )
 
 set (HDRS
@@ -89,7 +89,7 @@ set (HDRS
     ${HDR_DIR}/vertex_buffer_object.hpp
     ${HDR_DIR}/vertex_array_object.hpp
     ${HDR_DIR}/element_array_buffer.hpp
-    ${HDR_DIR}/square.hpp
+    ${HDR_DIR}/sprite.hpp
 )
 
 if(HIDE_CONSOLE)
