@@ -105,17 +105,26 @@ int main()
     const auto program = std::make_shared<shader>("shader", "FragColor");
     program->use();
 
+    auto proj_uniform = program->get_uniform("projection");
+    auto view_uniform = program->get_uniform("view");
+    auto model_uniform = program->get_uniform("model");
+
     glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
     //glm::mat4 projection = glm::identity<glm::mat4>();
-    auto proj_uniform = program->get_uniform("projection");
     glUniformMatrix4fv(proj_uniform, 1, GL_FALSE, glm::value_ptr(projection));
+
+    glm::mat4 view = glm::identity<glm::mat4>();
+    glUniformMatrix4fv(view_uniform, 1, GL_FALSE, glm::value_ptr(view));
+
+    glm::mat4 model = glm::identity<glm::mat4>();
+    glm::vec2 position(200, 200);
+    glm::vec2 size(300, 300);
+    model = glm::translate(model, glm::vec3(position, 0.0f));
+    model = glm::scale(model, glm::vec3(size, 1.0f));
+    glUniformMatrix4fv(model_uniform, 1, GL_FALSE, glm::value_ptr(model));
 
     auto s = sprite(program);
 
-    auto color_uniform = program->get_uniform("color");
-    auto view_uniform = program->get_uniform("view");
-    auto model_uniform = program->get_uniform("model");
-    auto ortho_uniform = program->get_uniform("ortho");
 
     //auto show_demo_window = true;
     const auto clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
