@@ -12,6 +12,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <imgui.h>
 
@@ -104,7 +105,10 @@ int main()
     const auto program = std::make_shared<shader>("shader", "FragColor");
     program->use();
 
-    glm::mat4 projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
+    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+    //glm::mat4 projection = glm::identity<glm::mat4>();
+    auto proj_uniform = program->get_uniform("projection");
+    glUniformMatrix4fv(proj_uniform, 1, GL_FALSE, glm::value_ptr(projection));
 
     auto s = square(program);
 
