@@ -5,7 +5,9 @@
 
 #include <spdlog/spdlog.h>
 
+#ifndef NDEBUG
 #include "gl_exception.hpp"
+#endif
 
 namespace gl_err
 {
@@ -26,7 +28,7 @@ namespace gl_err
         const auto text = message.str();
         const auto error_message = text.substr(0, text.size() - 2);
 #ifdef NDEBUG
-        spdlog::error("Error occurred in {}: {}", name, message);
+        spdlog::error("Error occurred in {}: {}", name, error_message);
 #else
         throw gl_exception(error_message);
 #endif
