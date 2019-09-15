@@ -119,6 +119,7 @@ int main()
     glUniformMatrix4fv(proj_uniform, 1, GL_FALSE, glm::value_ptr(projection));
 
     glm::mat4 view = glm::identity<glm::mat4>();
+    //view = glm::translate(view, glm::vec3(200, 100, 0));
     glUniformMatrix4fv(view_uniform, 1, GL_FALSE, glm::value_ptr(view));
 
     glm::mat4 model = glm::identity<glm::mat4>();
