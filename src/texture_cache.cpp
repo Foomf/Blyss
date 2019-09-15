@@ -5,7 +5,7 @@ std::shared_ptr<texture> texture_cache::get_texture(const std::string& file_name
     if (textures_.find(file_name) == textures_.end())
     {
         auto t = std::make_shared<texture>(file_name);
-        textures_[file_name] = t;;
+        textures_[file_name] = t;
         return t;
     }
 
@@ -17,7 +17,7 @@ std::shared_ptr<texture> texture_cache::get_texture(const std::string& file_name
     else
     {
         t = std::make_shared<texture>(file_name);
-        textures_[file_name] = t;;
+        textures_[file_name] = t;
         return t;
     }
 }
