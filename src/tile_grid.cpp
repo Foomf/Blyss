@@ -42,10 +42,10 @@ sprite* tile_grid::tile_at(std::int32_t x, std::int32_t y) const
     return sprites_[index].get();
 }
 
-void tile_grid::set_tile(std::int32_t x, std::int32_t y)
+void tile_grid::set_tile(std::int32_t x, std::int32_t y, const std::string& file_path)
 {
     const auto index = get_index(x, y);
-    sprites_[index] = std::make_unique<sprite>(shader_, texture_cache_, "face.png");
+    sprites_[index] = std::make_unique<sprite>(shader_, texture_cache_, file_path);
 }
 
 void tile_grid::draw() const

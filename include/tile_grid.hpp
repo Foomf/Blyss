@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <vector>
 #include <memory>
+#include <string>
 
 #include <glad/glad.h>
 
@@ -34,7 +35,7 @@ public:
     tile_grid& operator=(const tile_grid&) = delete;
     tile_grid& operator=(tile_grid&&) = delete;
 
-    void set_tile(std::int32_t x, std::int32_t y);
+    void set_tile(std::int32_t x, std::int32_t y, const std::string& file_path);
 
     void draw() const;
 };
