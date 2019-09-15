@@ -6,8 +6,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-sprite::sprite(std::shared_ptr<shader> shader)
-    : texture_{std::make_unique<texture>("face.png")}
+sprite::sprite(std::shared_ptr<shader> shader, std::shared_ptr<texture_cache> texture_cache, const std::string& file_path)
+    : texture_{texture_cache->get_texture(file_path)}
     , shader_{std::move(shader)}
 {
     glGenVertexArrays(1, &vao_);

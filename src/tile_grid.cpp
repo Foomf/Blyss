@@ -8,7 +8,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 tile_grid::tile_grid(std::shared_ptr<shader> shader, std::int32_t width, std::int32_t height)
-    : shader_{std::move(shader)}
+    : texture_cache_{std::make_shared<texture_cache>()}
+    , shader_{std::move(shader)}
     , sprites_{width * height}
     , width_ {width}
     , height_ {height}
@@ -44,7 +45,7 @@ sprite* tile_grid::tile_at(std::int32_t x, std::int32_t y) const
 void tile_grid::set_tile(std::int32_t x, std::int32_t y)
 {
     const auto index = get_index(x, y);
-    sprites_[index] = std::make_unique<sprite>(shader_);
+    sprites_[index] = std::make_unique<sprite>(shader_, texture_cache_, "face.png");
 }
 
 void tile_grid::draw() const

@@ -8,9 +8,11 @@
 
 #include "sprite.hpp"
 #include "shader.hpp"
+#include "texture_cache.hpp"
 
 class tile_grid
 {
+    std::shared_ptr<texture_cache> texture_cache_;
     std::shared_ptr<shader> shader_;
     std::vector<std::unique_ptr<sprite>> sprites_;
     std::int32_t width_;
