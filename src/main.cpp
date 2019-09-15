@@ -124,7 +124,7 @@ int main()
     glUniformMatrix4fv(view_uniform, 1, GL_FALSE, glm::value_ptr(view));
 
     tile_grid grid(program, 2, 2);
-    grid.set_tile(0, 0, "face.png");
+    grid.set_tile(0, 0, "spritesheet.png");
     grid.set_tile(0, 1, "face2.png");
     grid.set_tile(1, 0, "face3.png");
     grid.set_tile(1, 1, "face4.png");
