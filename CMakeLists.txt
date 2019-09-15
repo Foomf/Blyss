@@ -16,13 +16,6 @@ project (${PROG_NAME})
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(GLAD_DEBUG OFF CACHE BOOL "")
-if(${GLAD_DEBUG})
-    set(GLAD_DIR lib/glad/debug)
-else()
-    set(GLAD_DIR lib/glad/release)
-endif()
-
 set(IMGUI_DIR lib/imgui)
 set(GLM_DIR lib/glm)
 set(SPDLOG_DIR lib/spdlog)
@@ -30,11 +23,7 @@ set(STB_DIR lib/stb)
 
 add_subdirectory(lib/glfw)
 
-add_library(glad 
-    ${GLAD_DIR}/src/glad.c
-    ${GLAD_DIR}/include/glad/glad.h
-    ${GLAD_DIR}/include/KHR/khrplatform.h
-)
+add_subdirectory(lib/gladimpl)
 
 add_library(imgui
     ${IMGUI_DIR}/imconfig.h
@@ -56,7 +45,6 @@ set(HDR_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 include_directories(${HDR_DIR})
-include_directories(${GLAD_DIR}/include)
 include_directories(${IMGUI_DIR})
 include_directories(${IMGUI_DIR}/examples)
 include_directories(${GLM_DIR})
@@ -100,6 +88,6 @@ add_executable(${PROG_NAME} WIN32 ${SRCS} ${HDRS})
 else()
 add_executable(${PROG_NAME} ${SRCS} ${HDRS})
 endif()
-target_link_libraries(${PROG_NAME} glad)
+target_link_libraries(${PROG_NAME} gladimpl)
 target_link_libraries(${PROG_NAME} glfw)
 target_link_libraries(${PROG_NAME} imgui)

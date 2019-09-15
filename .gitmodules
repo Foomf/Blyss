@@ -13,3 +13,6 @@
 [submodule "lib/stb"]
 	path = lib/stb
 	url = git@github.com:nothings/stb.git
+[submodule "lib/gladimpl"]
+	path = lib/gladimpl
+	url = git@github.com:Foomf/gladimpl.git
