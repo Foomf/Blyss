@@ -33,8 +33,8 @@ GLuint proj_uniform = 0;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    //glViewport(0, 0, width, height);
-    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+    glViewport(0, 0, width, height);
+    glm::mat4 projection = glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f);
     //glm::mat4 projection = glm::identity<glm::mat4>();
     glUniformMatrix4fv(proj_uniform, 1, GL_FALSE, glm::value_ptr(projection));
 }
