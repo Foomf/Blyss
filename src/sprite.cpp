@@ -7,12 +7,12 @@
 #include "stb_image.h"
 
 sprite::sprite(std::shared_ptr<shader> shader)
-    : shader_{std::move(shader)}
+    : texture_{std::make_unique<texture>("face.png")}
+    , shader_{std::move(shader)}
 {
     glGenVertexArrays(1, &vao_);
     glGenBuffers(1, &vbo_);
     glGenBuffers(1, &eab_);
-    glGenTextures(1, &texture_);
 
     float vertices[] = {
          0.5f,  0.5f,   1.0f, 1.0f, // top right
@@ -38,30 +38,10 @@ sprite::sprite(std::shared_ptr<shader> shader)
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eab_);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture_);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    int width, height, nrChannels;
-    unsigned char *data = stbi_load("face.png", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        spdlog::error("Failed to load image!");
-    }
-    stbi_image_free(data);
 }
 
 sprite::~sprite()
 {
-    glDeleteTextures(1, &texture_);
     glDeleteBuffers(1, &eab_);
     glDeleteBuffers(1, &vbo_);
     glDeleteVertexArrays(1, &vao_);
@@ -71,7 +51,6 @@ void sprite::draw() const
 {
     shader_->use();
     glBindVertexArray(vao_);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture_);
+    texture_->use();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

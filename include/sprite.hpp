@@ -6,13 +6,14 @@
 #include <glad/glad.h>
 
 #include "shader.hpp"
+#include "texture.hpp"
 
 class sprite
 {
     GLuint vao_ = 0;
     GLuint vbo_ = 0;
     GLuint eab_ = 0;
-    GLuint texture_ = 0;
+    std::unique_ptr<texture> texture_;
 
     std::shared_ptr<shader> shader_;
 
