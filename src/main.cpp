@@ -26,6 +26,7 @@
 #include "shader.hpp"
 #include "vertex_buffer_object.hpp"
 #include "sprite.hpp"
+#include "tile_grid.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -119,17 +120,23 @@ int main()
     glUniformMatrix4fv(proj_uniform, 1, GL_FALSE, glm::value_ptr(projection));
 
     glm::mat4 view = glm::identity<glm::mat4>();
-    //view = glm::translate(view, glm::vec3(200, 100, 0));
+    view = glm::translate(view, glm::vec3(300, 300, 0));
     glUniformMatrix4fv(view_uniform, 1, GL_FALSE, glm::value_ptr(view));
 
-    glm::mat4 model = glm::identity<glm::mat4>();
-    glm::vec2 position(200, 200);
-    glm::vec2 size(300, 300);
-    model = glm::translate(model, glm::vec3(position, 0.0f));
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-    glUniformMatrix4fv(model_uniform, 1, GL_FALSE, glm::value_ptr(model));
+    tile_grid grid(program, 2, 2);
+    grid.set_tile(0, 0);
+    grid.set_tile(0, 1);
+    grid.set_tile(1, 0);
+    grid.set_tile(1, 1);
 
-    auto s = sprite(program);
+    //glm::mat4 model = glm::identity<glm::mat4>();
+    //glm::vec2 position(200, 200);
+    //glm::vec2 size(300, 300);
+    //model = glm::translate(model, glm::vec3(position, 0.0f));
+    //model = glm::scale(model, glm::vec3(size, 1.0f));
+    //glUniformMatrix4fv(model_uniform, 1, GL_FALSE, glm::value_ptr(model));
+
+    //auto s = sprite(program);
 
 
     //auto show_demo_window = true;
@@ -155,7 +162,8 @@ int main()
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        s.draw();
+        //s.draw();
+        grid.draw();
 
         //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

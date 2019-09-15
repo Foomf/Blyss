@@ -76,6 +76,7 @@ set(SRCS
     ${SRC_DIR}/vertex_array_object.cpp
     ${SRC_DIR}/element_array_buffer.cpp
     ${SRC_DIR}/sprite.cpp
+    ${SRC_DIR}/tile_grid.cpp
 )
 
 set (HDRS
@@ -90,6 +91,7 @@ set (HDRS
     ${HDR_DIR}/vertex_array_object.hpp
     ${HDR_DIR}/element_array_buffer.hpp
     ${HDR_DIR}/sprite.hpp
+    ${HDR_DIR}/tile_grid.hpp
 )
 
 if(HIDE_CONSOLE)
