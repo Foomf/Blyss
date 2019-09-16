@@ -67,6 +67,7 @@ set(SRCS
     ${SRC_DIR}/tile_grid.cpp
     ${SRC_DIR}/texture.cpp
     ${SRC_DIR}/texture_cache.cpp
+    ${SRC_DIR}/texture_map.cpp
 )
 
 set (HDRS
@@ -84,6 +85,7 @@ set (HDRS
     ${HDR_DIR}/tile_grid.hpp
     ${HDR_DIR}/texture.hpp
     ${HDR_DIR}/texture_cache.hpp
+    ${HDR_DIR}/texture_map.hpp
 )
 
 if(HIDE_CONSOLE)
