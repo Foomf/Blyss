@@ -95,3 +95,11 @@ endif()
 target_link_libraries(${PROG_NAME} gladimpl)
 target_link_libraries(${PROG_NAME} glfw)
 target_link_libraries(${PROG_NAME} imgui)
+
+file(COPY
+    ${CMAKE_CURRENT_SOURCE_DIR}/spritesheet.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/face.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/face2.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/face3.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/face4.png
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
