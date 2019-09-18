@@ -6,7 +6,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-sprite::sprite(std::shared_ptr<shader> shader, std::shared_ptr<texture_cache> texture_cache, const std::string& file_path)
+#include "texture_ref.hpp"
+
+sprite::sprite(std::shared_ptr<shader> shader, const std::shared_ptr<texture_cache>& texture_cache, const std::string& file_path, std::int32_t tx, std::int32_t ty)
     : texture_{texture_cache->get_texture(file_path)}
     , shader_{std::move(shader)}
 {
@@ -14,11 +16,13 @@ sprite::sprite(std::shared_ptr<shader> shader, std::shared_ptr<texture_cache> te
     glGenBuffers(1, &vbo_);
     glGenBuffers(1, &eab_);
 
+    const auto t_ref = texture_->texture_at(tx, ty);
+
     float vertices[] = {
-         0.5f,  0.5f,   1.0f, 1.0f, // top right
-         0.5f, -0.5f,   1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f,   0.0f, 0.0f, // bottom left
-        -0.5f,  0.5f,   0.0f, 1.0f  // top left 
+         0.5f,  0.5f,   t_ref.top_right.x, t_ref.top_right.y,
+         0.5f, -0.5f,   t_ref.bottom_right.x, t_ref.bottom_right.y,
+        -0.5f, -0.5f,   t_ref.bottom_left.x, t_ref.bottom_left.y,
+        -0.5f,  0.5f,   t_ref.top_left.x, t_ref.top_left.y
     };
     unsigned int indices[] = {  // note that we start from 0!
         0, 1, 3,   // first triangle

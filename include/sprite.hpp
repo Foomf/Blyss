@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+#include <cstdint>
 
 #include <glad/glad.h>
 
@@ -19,7 +20,7 @@ class sprite
     std::shared_ptr<shader> shader_;
 
 public:
-    explicit sprite(std::shared_ptr<shader> shader, std::shared_ptr<texture_cache> texture_cache, const std::string& file_path);
+    explicit sprite(std::shared_ptr<shader> shader, const std::shared_ptr<texture_cache>& texture_cache, const std::string& file_path, std::int32_t tx, std::int32_t ty);
     ~sprite();
 
     void draw() const;
