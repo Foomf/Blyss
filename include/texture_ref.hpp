@@ -1,11 +1,11 @@
 #pragma once
 
-#include <cstdint>
+#include <glm/vec2.hpp>
 
 struct texture_ref
 {
-    std::int32_t x;
-    std::int32_t y;
-    double x_scale;
-    double y_scale;
+    glm::vec2 top_left;
+    glm::vec2 top_right;
+    glm::vec2 bottom_left;
+    glm::vec2 bottom_right;
 };

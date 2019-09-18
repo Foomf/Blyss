@@ -6,12 +6,12 @@ texture_map::texture_map(std::int32_t texture_size, std::int32_t image_width, st
 {
 }
 
-texture_ref texture_map::get_ref(std::int32_t x, std::int32_t y)
+texture_ref texture_map::get_ref(std::int32_t x, std::int32_t y) const
 {
     texture_ref ref{};
-    ref.x = x;
-    ref.y = y;
-    ref.x_scale = x_scale_;
-    ref.y_scale = y_scale_;
+    ref.top_left = glm::vec2(x_scale_ * x, y_scale_ * (y + 1));
+    ref.top_right = glm::vec2(x_scale_ * (x + 1), y_scale_ * (y + 1));
+    ref.bottom_left = glm::vec2(x_scale_ * x, y_scale_ * y);
+    ref.bottom_right = glm::vec2(x_scale_ * (x + 1), y_scale_ * y);
     return ref;
 }
