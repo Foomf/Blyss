@@ -86,6 +86,7 @@ set (HDRS
     ${HDR_DIR}/texture.hpp
     ${HDR_DIR}/texture_cache.hpp
     ${HDR_DIR}/texture_map.hpp
+    ${HDR_DIR}/texture_ref.hpp
 )
 
 if(HIDE_CONSOLE)
