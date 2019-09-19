@@ -3,9 +3,6 @@
 
 #include <spdlog/spdlog.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 #include "texture_ref.hpp"
 
 sprite::sprite(std::shared_ptr<shader> shader, const std::shared_ptr<texture_cache>& texture_cache, const std::string& file_path, std::int32_t tx, std::int32_t ty)
