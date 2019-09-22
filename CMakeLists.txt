@@ -10,7 +10,7 @@ if(WIN32)
     set(HIDE_CONSOLE ON CACHE BOOL "")
 endif()
 
-set(PROG_NAME Thimble)
+set(PROG_NAME Blyss)
 project (${PROG_NAME})
 
 set(CMAKE_CXX_STANDARD 11)
