@@ -18,6 +18,8 @@
 
 #include <spdlog/spdlog.h>
 
+#include <curses.h>
+
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "glfw_state.hpp"
@@ -46,6 +48,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 int main()
 #endif
 {
+    initscr();
+    printw("Hello, world !!!");
+    refresh();
+    getch();
+    endwin();
+
 //    const glfw_state glfw_state;
 //
 //    if (!glfw_state.is_success())

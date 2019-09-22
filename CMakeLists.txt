@@ -157,6 +157,7 @@ endif()
 target_link_libraries(${PROG_NAME} gladimpl)
 target_link_libraries(${PROG_NAME} glfw)
 target_link_libraries(${PROG_NAME} imgui)
+target_link_libraries(${PROG_NAME} PDCurses)
 
 file(COPY
     ${CMAKE_CURRENT_SOURCE_DIR}/spritesheet.png
