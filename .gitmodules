@@ -16,3 +16,6 @@
 [submodule "lib/gladimpl"]
 	path = lib/gladimpl
 	url = git@github.com:Foomf/gladimpl.git
+[submodule "lib/PDCurses"]
+	path = lib/PDCurses
+	url = git@github.com:wmcbrine/PDCurses.git
