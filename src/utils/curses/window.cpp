@@ -49,10 +49,21 @@ namespace blyss::utils::curses
 
     void window::center() const
     {
-        auto terminal_width = curses_state_->get_width();
-        auto window_width = getmaxx(win_ptr_.get());
-        auto window_y = getbegx(win_ptr_.get());
+        const auto terminal_width = curses_state_->get_width();
+        const auto window_width = getmaxx(win_ptr_.get());
+        const auto window_y = getbegx(win_ptr_.get());
         mvwin(win_ptr_.get(), window_y, terminal_width / 2 - window_width / 2);
+    }
+
+    std::int32_t window::get_height() const
+    {
+        return getmaxy(win_ptr_.get());
+    }
+
+    void window::move_y(std::int32_t y) const
+    {
+        const auto window_x = getbegx(win_ptr_.get());
+        mvwin(win_ptr_.get(), y, window_x);
     }
 
 

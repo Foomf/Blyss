@@ -37,5 +37,9 @@ namespace blyss::utils::curses
         void box() const;
 
         void center() const;
+
+        [[nodiscard]] std::int32_t get_height() const;
+
+        void move_y(std::int32_t y) const;
     };
 }

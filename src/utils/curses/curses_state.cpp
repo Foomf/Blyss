@@ -14,6 +14,7 @@ namespace blyss::utils::curses
             clear();
             noecho();
             cbreak();
+            curs_set(0);
         }
     }
 

@@ -16,8 +16,7 @@ namespace blyss::startup::menus
 
     main_menu::main_menu(std::shared_ptr<curses_state> curses)
         : banner_{curses->make_window(10, 30, 0, 0)}
-        , win_{curses->make_window(10, 30, 10, 10)}
-        , curses_{std::move(curses)}
+        , menu_win_{curses->make_window(15, 30, 10, 10)}
         , menu_options_{
             "Play Single Player",
             "Connect To Server",
@@ -27,7 +26,7 @@ namespace blyss::startup::menus
         }
         , choice_{0}
     {
-        win_->use_keypad();
+        menu_win_->use_keypad();
     }
 
     void main_menu::show()
@@ -36,11 +35,14 @@ namespace blyss::startup::menus
         banner_->move_and_print(0, 0, banner_text);
         banner_->refresh();
 
+        menu_win_->move_y(banner_->get_height() + 3);
+        menu_win_->center();
+
         print_menu();
         auto done = false;
         while(!done)
         {
-            auto c = win_->get_char();
+            auto c = menu_win_->get_char();
             switch(c)
             {
             case KEY_UP:
@@ -84,20 +86,18 @@ namespace blyss::startup::menus
         {
             if (choice_ == ii)
             {
-                win_->enable_reverse();
-                win_->move_and_print(y, x, menu_options_[ii]);
-                //mvwprintw(curses_->stdscr(), y, x, "%s", menu_options_[ii].c_str());
-                win_->disable_reverse();
+                menu_win_->enable_reverse();
+                menu_win_->move_and_print(y, x, menu_options_[ii]);
+                menu_win_->disable_reverse();
             }
             else
             {
-                win_->move_and_print(y, x, menu_options_[ii]);
-                //mvwprintw(curses_->stdscr(), y, x, "%s", menu_options_[ii].c_str());
+                menu_win_->move_and_print(y, x, menu_options_[ii]);
             }
-            ++y;
+            y += 2;
         }
 
-        win_->refresh();
+        menu_win_->refresh();
     }
 
 
