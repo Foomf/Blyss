@@ -6,6 +6,7 @@
 #include <cstdint>
 
 #include "utils/curses/curses_state.hpp"
+#include "utils/curses/window.hpp"
 
 namespace blyss::startup::menus
 {
@@ -13,6 +14,7 @@ namespace blyss::startup::menus
 
     class main_menu
     {
+        std::shared_ptr<window> win_;
         std::shared_ptr<curses_state> curses_;
         std::vector<std::string> menu_options_;
         std::int32_t choice_;

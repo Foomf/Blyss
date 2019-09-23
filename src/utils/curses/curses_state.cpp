@@ -1,6 +1,6 @@
 #include "utils/curses/curses_state.hpp"
 
-#include <curses.h>
+#include "utils/curses/window.hpp"
 
 namespace blyss::utils::curses
 {
@@ -25,14 +25,13 @@ namespace blyss::utils::curses
         return stdscr_ != nullptr;
     }
 
-    WINDOW* curses_state::stdscr() const
-    {
-        return stdscr_;
-    }
-
     void curses_state::refresh() const
     {
         ::refresh();
     }
 
+    std::shared_ptr<window> curses_state::make_window(std::int32_t nlines, std::int32_t ncols, std::int32_t begin_y, std::int32_t begin_x)
+    {
+        return std::make_shared<window>(shared_from_this(), nlines, ncols, begin_y, begin_x);
+    }
 }
