@@ -5,10 +5,12 @@
 #include <string>
 #include <cstdint>
 
-#include "curses_state.hpp"
+#include "utils/curses/curses_state.hpp"
 
 namespace blyss::startup::menus
 {
+    using namespace utils::curses;
+
     class main_menu
     {
         std::shared_ptr<curses_state> curses_;

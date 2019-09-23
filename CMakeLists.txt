@@ -132,7 +132,7 @@ set(SRCS
     ${SRC_DIR}/texture_cache.cpp
     ${SRC_DIR}/texture_map.cpp
     ${SRC_DIR}/startup/menus/main_menu.cpp
-    ${SRC_DIR}/curses_state.cpp
+    ${SRC_DIR}/utils/curses/curses_state.cpp
 )
 
 set (HDRS
@@ -153,7 +153,7 @@ set (HDRS
     ${HDR_DIR}/texture_map.hpp
     ${HDR_DIR}/texture_ref.hpp
     ${HDR_DIR}/startup/menus/main_menu.hpp
-    ${HDR_DIR}/curses_state.hpp
+    ${HDR_DIR}/utils/curses/curses_state.hpp
 )
 
 if(HIDE_CONSOLE)
@@ -178,4 +178,9 @@ file(COPY
 source_group(startup/menus FILES
     ${SRC_DIR}/startup/menus/main_menu.cpp
     ${HDR_DIR}/startup/menus/main_menu.hpp
+)
+
+source_group(utils/curses FILES
+    ${HDR_DIR}/utils/curses/curses_state.hpp
+    ${SRC_DIR}/utils/curses/curses_state.cpp
 )
