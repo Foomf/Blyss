@@ -29,6 +29,8 @@
 #include "vertex_buffer_object.hpp"
 #include "sprite.hpp"
 #include "tile_grid.hpp"
+#include "curses_state.hpp"
+#include "startup/menus/main_menu.hpp"
 
 using glfw_window_ptr = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -48,32 +50,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 int main()
 #endif
 {
-    int ch;
-
-    initscr();			/* Start curses mode 		*/
-    raw();				/* Line buffering disabled	*/
-    keypad(stdscr, TRUE);		/* We get F1, F2 etc..		*/
-    noecho();			/* Don't echo() while we do getch */
-
-    printw("Type any character to see it in bold\n");
-    ch = getch();			/* If raw() hadn't been called
-                     * we have to press enter before it
-                     * gets to the program 		*/
-    if (ch == KEY_F(1))		/* Without keypad enabled this will */
-        printw("F1 Key pressed");/*  not get to us either	*/
-                    /* Without noecho() some ugly escape
-                     * charachters might have been printed
-                     * on screen			*/
-    else
-    {
-        printw("The pressed key is ");
-        attron(A_BOLD);
-        printw("%c", ch);
-        attroff(A_BOLD);
-    }
-    refresh();			/* Print it on to the real screen */
-    getch();			/* Wait for user input */
-    endwin();			/* End curses mode		  */
+    auto curses = std::make_shared<curses_state>();
+    auto main = blyss::startup::menus::main_menu(curses);
+    main.show();
 
 //    const glfw_state glfw_state;
 //

@@ -13,7 +13,7 @@ endif()
 set(PROG_NAME Blyss)
 project (${PROG_NAME})
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(IMGUI_DIR lib/imgui)
@@ -127,6 +127,8 @@ set(SRCS
     ${SRC_DIR}/texture.cpp
     ${SRC_DIR}/texture_cache.cpp
     ${SRC_DIR}/texture_map.cpp
+    ${SRC_DIR}/startup/menus/main_menu.cpp
+    ${SRC_DIR}/curses_state.cpp
 )
 
 set (HDRS
@@ -146,6 +148,8 @@ set (HDRS
     ${HDR_DIR}/texture_cache.hpp
     ${HDR_DIR}/texture_map.hpp
     ${HDR_DIR}/texture_ref.hpp
+    ${HDR_DIR}/startup/menus/main_menu.hpp
+    ${HDR_DIR}/curses_state.hpp
 )
 
 if(HIDE_CONSOLE)
@@ -166,3 +170,8 @@ file(COPY
     ${CMAKE_CURRENT_SOURCE_DIR}/face3.png
     ${CMAKE_CURRENT_SOURCE_DIR}/face4.png
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+source_group(startup/menus FILES
+    ${SRC_DIR}/startup/menus/main_menu.cpp
+    ${HDR_DIR}/startup/menus/main_menu.hpp
+)
