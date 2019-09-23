@@ -5,12 +5,12 @@
 #include <string>
 #include <functional>
 
-#include "utils/curses/curses_state.hpp"
-
 struct _win;
 
 namespace blyss::utils::curses
 {
+    class curses_state;
+
     class window
     {
         using curses_window_ptr = std::unique_ptr<_win, std::function<void(_win*)>>;
