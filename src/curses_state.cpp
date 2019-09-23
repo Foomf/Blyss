@@ -5,6 +5,12 @@
 curses_state::curses_state()
 {
     stdscr_ = initscr();
+    if (stdscr_)
+    {
+        clear();
+        noecho();
+        cbreak();
+    }
 }
 
 curses_state::~curses_state()
@@ -24,5 +30,5 @@ WINDOW* curses_state::stdscr() const
 
 void curses_state::refresh() const
 {
-    refresh();
+    ::refresh();
 }

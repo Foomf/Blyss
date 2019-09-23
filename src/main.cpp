@@ -50,6 +50,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 int main()
 #endif
 {
+
     auto curses = std::make_shared<curses_state>();
     auto main = blyss::startup::menus::main_menu(curses);
     main.show();

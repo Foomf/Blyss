@@ -99,6 +99,10 @@ add_library(PDCurses ${PDCURSES_SRCS})
 add_compile_definitions(IMGUI_IMPL_OPENGL_LOADER_GLAD)
 add_compile_definitions(SHADER_DIR="${SHADER_DIR}")
 
+add_compile_definitions(BLYSS_VERSION_MAJOR="0")
+add_compile_definitions(BLYSS_VERSION_MINOR="0")
+add_compile_definitions(BLYSS_VERSION_PATCH="0")
+
 set(HDR_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 

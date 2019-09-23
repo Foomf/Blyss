@@ -6,22 +6,84 @@ namespace blyss::startup::menus
 {
     main_menu::main_menu(std::shared_ptr<curses_state> curses)
         : curses_{std::move(curses)}
+        , menu_options_{
+            "Play Single Player",
+            "Connect To Server",
+            "Run Dedicated Server",
+            "Help",
+            "Quit"
+        }
+        , choice_{0}
     {
     }
 
 
     void main_menu::show()
     {
-        char mesg[] = "Enter a string: ";		/* message to be appeared on the screen */
-        char str[80];
-        int row, col;				/* to store the number of rows and *
-                            * the number of colums of the screen */
-        getmaxyx(stdscr, row, col);		/* get the number of rows and columns */
-        mvprintw(row / 2, (col - strlen(mesg)) / 2, "%s", mesg);
-        /* print the message at the center of the screen */
-        getstr(str);
-        mvprintw(LINES - 2, 0, "You Entered: %s", str);
-        getch();
+        keypad(curses_->stdscr(), true);
+        mvwprintw(curses_->stdscr(), 0, 0, "Use arrow keys to go up and down, press enter to select a choice");
+        curses_->refresh();
+        print_menu();
+        auto done = false;
+        while(!done)
+        {
+            auto c = wgetch(curses_->stdscr());
+            switch(c)
+            {
+            case KEY_UP:
+                if (choice_ <= 0)
+                {
+                    choice_ = menu_options_.size() - 1;
+                }
+                else
+                {
+                    --choice_;
+                }
+                break;
+            case KEY_DOWN:
+                if (choice_ >= menu_options_.size() - 1)
+                {
+                    choice_ = 0;
+                }
+                else
+                {
+                    ++choice_;
+                }
+                break;
+            default:
+                done = true;
+                break;
+            }
+
+            print_menu();
+        }
+        clrtoeol();
+        refresh();
+
     }
+
+    void main_menu::print_menu() const
+    {
+        auto x = 2;
+        auto y = 2;
+
+        for (auto ii = 0; ii < menu_options_.size(); ++ii)
+        {
+            if (choice_ == ii)
+            {
+                wattron(curses_->stdscr(), A_REVERSE);
+                mvwprintw(curses_->stdscr(), y, x, "%s", menu_options_[ii].c_str());
+                wattroff(curses_->stdscr(), A_REVERSE);
+            }
+            else
+            {
+                mvwprintw(curses_->stdscr(), y, x, "%s", menu_options_[ii].c_str());
+            }
+            ++y;
+        }
+
+        wrefresh(curses_->stdscr());
+    }
+
 
 }
