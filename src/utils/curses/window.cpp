@@ -15,10 +15,29 @@ namespace blyss::utils::curses
         ::mvwprintw(win_ptr_.get(), y, x, str.c_str());
     }
 
-    std::int32_t window::get_char()
+    std::int32_t window::get_char() const
     {
         return wgetch(win_ptr_.get());
     }
 
+    void window::enable_reverse() const
+    {
+        wattron(win_ptr_.get(), A_REVERSE);
+    }
+
+    void window::disable_reverse() const
+    {
+        wattroff(win_ptr_.get(), A_REVERSE);
+    }
+
+    void window::refresh() const
+    {
+        wrefresh(win_ptr_.get());
+    }
+
+    void window::use_keypad() const
+    {
+        keypad(win_ptr_.get(), true);
+    }
 
 }

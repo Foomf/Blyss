@@ -24,6 +24,14 @@ namespace blyss::utils::curses
 
         void move_and_print(std::int32_t y, std::int32_t x, const std::string& str) const;
 
-        std::int32_t get_char();
+        [[nodiscard]] std::int32_t get_char() const;
+
+        void use_keypad() const;
+
+        void enable_reverse() const;
+
+        void disable_reverse() const;
+
+        void refresh() const;
     };
 }

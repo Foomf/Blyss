@@ -24,6 +24,6 @@ namespace blyss::utils::curses
 
         [[nodiscard]] bool is_success() const;
         void refresh() const;
-        std::shared_ptr<window> make_window(std::int32_t nlines, std::int32_t ncols, std::int32_t begin_y, std::int32_t begin_x);
+        [[nodiscard]]  std::shared_ptr<window> make_window(std::int32_t nlines, std::int32_t ncols, std::int32_t begin_y, std::int32_t begin_x);
     };
 }
