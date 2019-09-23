@@ -36,4 +36,11 @@ namespace blyss::utils::curses
     {
         return std::make_shared<window>(shared_from_this(), nlines, ncols, begin_y, begin_x);
     }
+
+    std::int32_t curses_state::get_width() const
+    {
+        return getmaxx(stdscr_);
+    }
+
+
 }

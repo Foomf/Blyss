@@ -1,5 +1,7 @@
 #include "utils/curses/window.hpp"
 
+#include "utils/curses/curses_state.hpp"
+
 #include <curses.h>
 
 namespace blyss::utils::curses
@@ -39,5 +41,19 @@ namespace blyss::utils::curses
     {
         keypad(win_ptr_.get(), true);
     }
+
+    void window::box() const
+    {
+        ::box(win_ptr_.get(), 0, 0);
+    }
+
+    void window::center() const
+    {
+        auto terminal_width = curses_state_->get_width();
+        auto window_width = getmaxx(win_ptr_.get());
+        auto window_y = getbegx(win_ptr_.get());
+        mvwin(win_ptr_.get(), window_y, terminal_width / 2 - window_width / 2);
+    }
+
 
 }

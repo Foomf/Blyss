@@ -4,8 +4,19 @@
 
 namespace blyss::startup::menus
 {
+    const char* banner_text =
+        "  ____  _               \n"
+        " |  _ \\| |              \n"
+        " | |_) | |_   _ ___ ___ \n"
+        " |  _ <| | | | / __/ __|\n"
+        " | |_) | | |_| \\__ \\__ \\\n"
+        " |____/|_|\\__, |___/___/\n"
+        "           __/ |        \n"
+        "          |___/         \n";
+
     main_menu::main_menu(std::shared_ptr<curses_state> curses)
-        : win_{curses->make_window(10, 30, 0, 0)}
+        : banner_{curses->make_window(10, 30, 0, 0)}
+        , win_{curses->make_window(10, 30, 10, 10)}
         , curses_{std::move(curses)}
         , menu_options_{
             "Play Single Player",
@@ -21,8 +32,10 @@ namespace blyss::startup::menus
 
     void main_menu::show()
     {
-        win_->move_and_print(0, 0, "Blyss");
-        curses_->refresh();
+        banner_->center();
+        banner_->move_and_print(0, 0, banner_text);
+        banner_->refresh();
+
         print_menu();
         auto done = false;
         while(!done)

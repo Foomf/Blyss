@@ -33,5 +33,9 @@ namespace blyss::utils::curses
         void disable_reverse() const;
 
         void refresh() const;
+
+        void box() const;
+
+        void center() const;
     };
 }

@@ -14,6 +14,7 @@ namespace blyss::startup::menus
 
     class main_menu
     {
+        std::shared_ptr<window> banner_;
         std::shared_ptr<window> win_;
         std::shared_ptr<curses_state> curses_;
         std::vector<std::string> menu_options_;
