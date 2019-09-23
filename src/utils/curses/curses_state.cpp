@@ -1,5 +1,7 @@
 #include "utils/curses/curses_state.hpp"
 
+#include <curses.h>
+
 #include "utils/curses/window.hpp"
 
 namespace blyss::utils::curses

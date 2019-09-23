@@ -3,10 +3,7 @@
 #include <memory>
 #include <cstdint>
 
-#include <curses.h>
-
-//#include "utils/curses/window.hpp"
-
+struct _win;
 
 namespace blyss::utils::curses
 {
@@ -14,7 +11,7 @@ namespace blyss::utils::curses
 
     class curses_state : public std::enable_shared_from_this<curses_state>
     {
-        WINDOW* stdscr_;
+        _win* stdscr_;
 
     public:
         curses_state();
