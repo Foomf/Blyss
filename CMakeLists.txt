@@ -16,6 +16,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Include modules                                           #
 # --------------------------------------------------------- #
 include(cmake/embed.cmake)
+include(cmake/add.cmake)
+
+# --------------------------------------------------------- #
+# Include dependencies                                      #
+# --------------------------------------------------------- #
 include(cmake/lib/gladimpl.cmake)
 include(cmake/lib/glfw.cmake)
 include(cmake/lib/glm.cmake)
@@ -24,6 +29,9 @@ include(cmake/lib/pdcurses.cmake)
 include(cmake/lib/spdlog.cmake)
 include(cmake/lib/stb.cmake)
 
+# --------------------------------------------------------- #
+# Include sources                                           #
+# --------------------------------------------------------- #
 include(cmake/sources.cmake)
 
 # --------------------------------------------------------- #
@@ -33,11 +41,20 @@ add_compile_definitions(BLYSS_VERSION_MAJOR="0")
 add_compile_definitions(BLYSS_VERSION_MINOR="0")
 add_compile_definitions(BLYSS_VERSION_PATCH="1")
 
+# --------------------------------------------------------- #
+# Blyss Compile definitions                                 #
+# --------------------------------------------------------- #
 set(SHADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/shaders CACHE PATH "Shaders folder")
 add_compile_definitions(SHADER_DIR="${SHADER_DIR}")
 
+# --------------------------------------------------------- #
+# Blyss executable                                          #
+# --------------------------------------------------------- #
 add_executable(${PROG_NAME} ${BLYSS_SRCS} ${BLYSS_HDRS})
 
+# --------------------------------------------------------- #
+# Include directories                                       #
+# --------------------------------------------------------- #
 include_directories(${PROG_NAME}
     ${BLYSS_INCLUDE_DIR}
     ${GLM_INCLUDE_DIR}
@@ -47,6 +64,9 @@ include_directories(${PROG_NAME}
     ${STB_INCLUDE_DIR}
 )
 
+# --------------------------------------------------------- #
+# Library linking                                           #
+# --------------------------------------------------------- #
 target_link_libraries(${PROG_NAME}
     gladimpl
     glfw
