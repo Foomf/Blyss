@@ -8,8 +8,14 @@ set(BLYSS_HDRS
     ${IMGUI_DIR}/examples/imgui_impl_opengl3.h
 )
 
+# --------------------------------------------------------- #
+# main.cpp                                                  #
+# --------------------------------------------------------- #
 ADD_SRC_ROOT(main)
 
+# --------------------------------------------------------- #
+# Root dir classes                                          #
+# --------------------------------------------------------- #
 ADD_CLASS_ROOT(glfw_state)
 ADD_CLASS_ROOT(gl_exception)
 ADD_CLASS_ROOT(gl_error)
@@ -23,8 +29,19 @@ ADD_CLASS_ROOT(tile_grid)
 ADD_CLASS_ROOT(texture)
 ADD_CLASS_ROOT(texture_cache)
 ADD_CLASS_ROOT(texture_map)
+
+# --------------------------------------------------------- #
+# Root dir headers                                          #
+# --------------------------------------------------------- #
+ADD_HDR_ROOT(texture_ref)
+
+# --------------------------------------------------------- #
+# startup/menus                                             #
+# --------------------------------------------------------- #
 ADD_CLASS(main_menu startup/menus)
+
+# --------------------------------------------------------- #
+# utils/curses                                              #
+# --------------------------------------------------------- #
 ADD_CLASS(curses_state utils/curses)
 ADD_CLASS(window utils/curses)
-
-ADD_HDR_ROOT(texture_ref)
