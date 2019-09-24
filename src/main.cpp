@@ -20,8 +20,8 @@
 
 #include <curses.h>
 
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
+#include "examples/imgui_impl_glfw.h"
+#include "examples/imgui_impl_opengl3.h"
 #include "glfw_state.hpp"
 #include "gl_error.hpp"
 #include "shader_build_exception.hpp"
