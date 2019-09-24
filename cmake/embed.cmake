@@ -1,6 +1,7 @@
 function(EMBED_FILE FILE_NAME HEADER_NAME CONST_NAME)
     file(READ ${FILE_NAME} FILE_TXT)
-    string(REPLACE "\n" ";" FILE_TXT_LIST ${FILE_TXT})
+    string(REPLACE "\\" "\\\\" FILE_TXT_LIST ${FILE_TXT})
+    string(REPLACE "\n" ";" FILE_TXT_LIST ${FILE_TXT_LIST})
     set(HDR_SRC "#pragma once\nconst char* ${CONST_NAME} =")
     foreach(LINE ${FILE_TXT_LIST})
         set(HDR_SRC "${HDR_SRC}\n\"${LINE}\\n\"")

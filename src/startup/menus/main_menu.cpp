@@ -2,18 +2,10 @@
 
 #include <curses.h>
 
+#include "banner.hpp"
+
 namespace blyss::startup::menus
 {
-    const char* banner_text =
-        "  ____  _               \n"
-        " |  _ \\| |              \n"
-        " | |_) | |_   _ ___ ___ \n"
-        " |  _ <| | | | / __/ __|\n"
-        " | |_) | | |_| \\__ \\__ \\\n"
-        " |____/|_|\\__, |___/___/\n"
-        "           __/ |        \n"
-        "          |___/         \n";
-
     main_menu::main_menu(std::shared_ptr<curses_state> curses)
         : banner_{curses->make_window(10, 30, 0, 0)}
         , menu_win_{curses->make_window(15, 30, 10, 10)}
