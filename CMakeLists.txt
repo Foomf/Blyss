@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 
+include(cmake/test.cmake)
+EMBED_FILE(LICENSE.txt license.hpp license)
+
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
