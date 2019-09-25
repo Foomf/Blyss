@@ -58,9 +58,7 @@ add_executable(${PROG_NAME} ${BLYSS_SRCS} ${BLYSS_HDRS})
 # --------------------------------------------------------- #
 target_include_directories(${PROG_NAME} PUBLIC
     ${BLYSS_INCLUDE_DIR}
-    ${GLM_INCLUDE_DIR}
     ${IMGUI_INCLUDE_DIR}
-    ${PDCURSES_INCLUDE_DIR}
     ${SPDLOG_INCLUDE_DIR}
     ${STB_INCLUDE_DIR}
 )
@@ -74,4 +72,5 @@ target_link_libraries(${PROG_NAME}
     ${IMGUI_LIB}
     ${PDCURSES_LIB}
     ${LIBUV_LIB}
+    ${GLM_LIB}
 )

@@ -61,3 +61,5 @@ if(MSVC)
 endif()
 
 add_library(${PDCURSES_LIB} ${PDCURSES_SRCS})
+
+target_include_directories(${PDCURSES_LIB} PUBLIC ${PDCURSES_INCLUDE_DIR})
