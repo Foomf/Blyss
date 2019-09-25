@@ -28,6 +28,7 @@ include(cmake/lib/imgui.cmake)
 include(cmake/lib/pdcurses.cmake)
 include(cmake/lib/spdlog.cmake)
 include(cmake/lib/stb.cmake)
+include(cmake/lib/libuv.cmake)
 
 # --------------------------------------------------------- #
 # Include sources                                           #
@@ -72,4 +73,5 @@ target_link_libraries(${PROG_NAME}
     glfw
     ${IMGUI_LIB}
     ${PDCURSES_LIB}
+    ${LIBUV_LIB}
 )

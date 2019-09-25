@@ -2,10 +2,11 @@
 #include <cstdlib>
 #include <memory>
 #include <vector>
+#include <uv.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
+//#ifdef _WIN32
+//#include <windows.h>
+//#endif
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -19,6 +20,7 @@
 #include <spdlog/spdlog.h>
 
 #include <curses.h>
+
 
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
@@ -52,10 +54,18 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 int main()
 #endif
 {
+    uv_loop_t* loop = new uv_loop_t;
+    uv_loop_init(loop);
+    spdlog::info("Now quitting.");
+    uv_run(loop, UV_RUN_DEFAULT);
 
-    auto curses = std::make_shared<utils::curses::curses_state>();
-    auto main = startup::menus::main_menu(curses);
-    main.show();
+    uv_loop_close(loop);
+    delete loop;
+
+
+    //auto curses = std::make_shared<utils::curses::curses_state>();
+    //auto main = startup::menus::main_menu(curses);
+    //main.show();
 
     //    const glfw_state glfw_state;
     //
