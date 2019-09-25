@@ -56,7 +56,7 @@ add_executable(${PROG_NAME} ${BLYSS_SRCS} ${BLYSS_HDRS})
 # --------------------------------------------------------- #
 # Include directories                                       #
 # --------------------------------------------------------- #
-include_directories(${PROG_NAME}
+target_include_directories(${PROG_NAME} PUBLIC
     ${BLYSS_INCLUDE_DIR}
     ${GLM_INCLUDE_DIR}
     ${IMGUI_INCLUDE_DIR}
