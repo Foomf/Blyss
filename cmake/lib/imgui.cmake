@@ -19,3 +19,5 @@ add_library(${IMGUI_LIB}
     ${IMGUI_DIR}/imgui_widgets.cpp
     ${IMGUI_DIR}/imgui.cpp
 )
+
+target_include_directories(${IMGUI_LIB} PUBLIC ${IMGUI_INCLUDE_DIR})
