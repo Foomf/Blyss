@@ -19,3 +19,6 @@
 [submodule "lib/PDCurses"]
 	path = lib/PDCurses
 	url = git@github.com:wmcbrine/PDCurses.git
+[submodule "lib/libuv"]
+	path = lib/libuv
+	url = git@github.com:libuv/libuv.git
