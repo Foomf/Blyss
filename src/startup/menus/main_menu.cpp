@@ -6,7 +6,7 @@
 
 namespace blyss::startup::menus
 {
-    main_menu::main_menu(std::shared_ptr<curses_state> curses)
+    main_menu::main_menu(const std::shared_ptr<curses_state>& curses)
         : banner_{curses->make_window(10, 30, 0, 0)}
         , menu_win_{curses->make_window(15, 30, 10, 10)}
         , menu_options_{

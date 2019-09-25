@@ -22,7 +22,7 @@ namespace blyss::startup::menus
         void print_menu() const;
 
     public:
-        main_menu(std::shared_ptr<curses_state> curses);
+        main_menu(const std::shared_ptr<curses_state>& curses);
 
         void show();
     };
