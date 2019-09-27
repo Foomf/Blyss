@@ -68,8 +68,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 int main()
 #endif
 {
-    blyss::server::server s;
-    s.run_forever();
+    const auto s = std::make_shared<server::server>();
+    s->run_forever();
 
     //uv_loop_t* loop = new uv_loop_t;
     //uv_loop_init(loop);

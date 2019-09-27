@@ -8,6 +8,11 @@ namespace blyss::server
     const uint64_t frame_leeway = 10;
     const uint64_t slow_warning_reset_ms = 5000;
 
+    struct reset_slow_warning_scope
+    {
+        std::shared_ptr<server> server;
+    };
+
     void timer_callback(uv_timer_t* handle)
     {
         auto s = static_cast<server*>(handle->data);
@@ -16,9 +21,10 @@ namespace blyss::server
 
     void reset_slow_warning_callback(uv_timer_t* handle)
     {
-        auto s = static_cast<server*>(handle->data);
-        s->reset_show_slow_warning();
+        auto s = static_cast<reset_slow_warning_scope*>(handle->data);
+        s->server->reset_show_slow_warning();
         delete handle;
+        delete s;
     }
 
     server::server()
@@ -62,7 +68,8 @@ namespace blyss::server
 
             const auto handle = new uv_timer_t;
             uv_timer_init(loop_.get(), handle);
-            handle->data = static_cast<void*>(this);
+            const auto scope = new reset_slow_warning_scope{ shared_from_this() };
+            handle->data = static_cast<void*>(scope);
             uv_timer_start(handle, reset_slow_warning_callback, slow_warning_reset_ms, 0);
         }
         previous_time_ = current_time;

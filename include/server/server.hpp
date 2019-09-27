@@ -8,7 +8,7 @@ namespace blyss::server
 {
     using loop_ptr = std::unique_ptr<uv_loop_t, decltype(&uv_loop_close)>;
 
-    class server
+    class server : public std::enable_shared_from_this<server>
     {
         loop_ptr loop_;
         std::unique_ptr<uv_timer_t> frame_timer_;
