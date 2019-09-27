@@ -12,6 +12,10 @@ namespace blyss::server
     {
         loop_ptr loop_;
         std::unique_ptr<uv_timer_t> frame_timer_;
+        uint64_t previous_time_;
+        bool show_slow_warning_;
+
+        void check_too_slow();
 
     public:
         server();
@@ -21,6 +25,7 @@ namespace blyss::server
         server& operator=(const server&) = delete;
         server& operator=(server&&) = delete;
 
+        void reset_show_slow_warning();
         void frame();
         void run_frame() const;
         void run_forever() const;
