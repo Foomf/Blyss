@@ -33,6 +33,7 @@
 #include "tile_grid.hpp"
 #include "startup/menus/main_menu.hpp"
 #include "utils/curses/curses_state.hpp"
+#include "server/server.hpp"
 
 using namespace blyss;
 
@@ -67,19 +68,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 int main()
 #endif
 {
-    uv_loop_t* loop = new uv_loop_t;
-    uv_loop_init(loop);
-    std::intptr_t counter = 0;
+    blyss::server::server s;
+    s.run_forever();
 
-    uv_idle_t idler;
-    idler.data = reinterpret_cast<void*>(counter);
-    uv_idle_init(loop, &idler);
-    uv_idle_start(&idler, wait_for_a_while);
-    spdlog::info("Idling...");
-    uv_run(loop, UV_RUN_DEFAULT);
+    //uv_loop_t* loop = new uv_loop_t;
+    //uv_loop_init(loop);
+    //std::intptr_t counter = 0;
 
-    uv_loop_close(loop);
-    delete loop;
+    //uv_idle_t idler;
+    //idler.data = reinterpret_cast<void*>(counter);
+    //uv_idle_init(loop, &idler);
+    //uv_idle_start(&idler, wait_for_a_while);
+    //spdlog::info("Idling...");
+    //uv_run(loop, UV_RUN_DEFAULT);
+
+    //uv_loop_close(loop);
+    //delete loop;
 
 
     //auto curses = std::make_shared<utils::curses::curses_state>();
