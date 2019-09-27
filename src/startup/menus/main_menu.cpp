@@ -34,7 +34,7 @@ namespace blyss::startup::menus
         auto done = false;
         while(!done)
         {
-            auto c = menu_win_->get_char();
+            const auto c = menu_win_->get_char();
             switch(c)
             {
             case KEY_UP:
@@ -71,10 +71,10 @@ namespace blyss::startup::menus
 
     void main_menu::print_menu() const
     {
-        auto x = 2;
+        const auto x = 2;
         auto y = 2;
 
-        for (auto ii = 0; ii < menu_options_.size(); ++ii)
+        for (size_t ii = 0; ii < menu_options_.size(); ++ii)
         {
             if (choice_ == ii)
             {
