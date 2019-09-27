@@ -44,6 +44,7 @@ ADD_HDR_ROOT(texture_ref)
 # server                                                    #
 # --------------------------------------------------------- #
 ADD_CLASS(server server)
+ADD_CLASS(perf_watcher server)
 
 # --------------------------------------------------------- #
 # startup/menus                                             #

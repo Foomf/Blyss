@@ -4,16 +4,15 @@
 
 #include <uv.h>
 
+#include "server/perf_watcher.hpp"
+
 namespace blyss::server
 {
     class server : public std::enable_shared_from_this<server>
     {
         uv_loop_t* loop_;
         std::unique_ptr<uv_timer_t> frame_timer_;
-        uint64_t previous_time_;
-        bool show_slow_warning_;
-
-        void check_too_slow();
+        std::shared_ptr<perf_watcher> perf_watcher_;
 
     public:
         explicit server(uv_loop_t* loop);
@@ -23,7 +22,6 @@ namespace blyss::server
         server& operator=(const server&) = delete;
         server& operator=(server&&) = delete;
 
-        void reset_show_slow_warning();
         void frame();
         void run_frame() const;
         void run_forever() const;
