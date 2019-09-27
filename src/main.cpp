@@ -48,6 +48,19 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glUniformMatrix4fv(proj_uniform, 1, GL_FALSE, glm::value_ptr(projection));
 }
 
+int counter = 0;
+
+void wait_for_a_while(uv_idle_t* handle)
+{
+    auto counter = reinterpret_cast<std::intptr_t>(handle->data);
+    counter += 1;
+    if (counter >= 10e5)
+    {
+        uv_idle_stop(handle);
+    }
+    handle->data = reinterpret_cast<void*>(counter);
+}
+
 #if defined(_WIN32) && defined(HIDE_CONSOLE)
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 #else
@@ -56,7 +69,13 @@ int main()
 {
     uv_loop_t* loop = new uv_loop_t;
     uv_loop_init(loop);
-    spdlog::info("Now quitting.");
+    std::intptr_t counter = 0;
+
+    uv_idle_t idler;
+    idler.data = reinterpret_cast<void*>(counter);
+    uv_idle_init(loop, &idler);
+    uv_idle_start(&idler, wait_for_a_while);
+    spdlog::info("Idling...");
     uv_run(loop, UV_RUN_DEFAULT);
 
     uv_loop_close(loop);
