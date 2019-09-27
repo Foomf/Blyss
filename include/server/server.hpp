@@ -6,11 +6,9 @@
 
 namespace blyss::server
 {
-    using loop_ptr = std::unique_ptr<uv_loop_t, decltype(&uv_loop_close)>;
-
     class server : public std::enable_shared_from_this<server>
     {
-        loop_ptr loop_;
+        uv_loop_t* loop_;
         std::unique_ptr<uv_timer_t> frame_timer_;
         uint64_t previous_time_;
         bool show_slow_warning_;
@@ -18,7 +16,8 @@ namespace blyss::server
         void check_too_slow();
 
     public:
-        server();
+        server(uv_loop_t* loop);
+        ~server();
 
         server(const server&) = delete;
         server(server&&) = delete;
@@ -29,5 +28,7 @@ namespace blyss::server
         void frame();
         void run_frame() const;
         void run_forever() const;
+        void start();
+        void stop() const;
     };
 }

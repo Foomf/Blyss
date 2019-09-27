@@ -68,7 +68,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 int main()
 #endif
 {
-    const auto s = std::make_shared<server::server>();
+    const auto s = std::make_shared<server::server>(uv_default_loop());
+    s->start();
     s->run_forever();
 
     //uv_loop_t* loop = new uv_loop_t;
