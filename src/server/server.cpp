@@ -29,7 +29,7 @@ namespace blyss::server
     {
         const auto scope = new timer_scope{ shared_from_this() };
         frame_timer_->data = static_cast<void*>(scope);
-        uv_timer_start(frame_timer_.get(), timer_callback, 0, ms_per_frame + 20);
+        uv_timer_start(frame_timer_.get(), timer_callback, 0, ms_per_frame);
     }
 
     void server::run_frame() const
