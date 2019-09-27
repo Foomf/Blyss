@@ -31,19 +31,12 @@ namespace blyss::server
     {
         const auto current_time = uv_now(loop_);
         const auto diff = current_time - previous_time_;
+        previous_time_ = current_time;
+
         if (show_slow_warning_ && diff > ms_per_frame_ + frame_leeway)
         {
-            const auto missed_ms = diff - ms_per_frame_;
-            spdlog::warn("Server is running {0:d} ms behind! Consider getting a faster cpu...", missed_ms);
-            show_slow_warning_ = false;
-
-            const auto handle = new uv_timer_t;
-            uv_timer_init(loop_, handle);
-            const auto scope = new reset_slow_warning_scope{ shared_from_this() };
-            handle->data = static_cast<void*>(scope);
-            uv_timer_start(handle, reset_slow_warning_callback, slow_warning_reset_ms_, 0);
+            show_message(diff - ms_per_frame_);
         }
-        previous_time_ = current_time;
     }
 
     void perf_watcher::reset()
@@ -51,5 +44,16 @@ namespace blyss::server
         show_slow_warning_ = true;
     }
 
+    void perf_watcher::show_message(const std::uint64_t missed_ms)
+    {
+        spdlog::warn("Server is running {0:d} ms behind! Consider getting a faster cpu...", missed_ms);
+        show_slow_warning_ = false;
+
+        const auto handle = new uv_timer_t;
+        uv_timer_init(loop_, handle);
+        const auto scope = new reset_slow_warning_scope{ shared_from_this() };
+        handle->data = static_cast<void*>(scope);
+        uv_timer_start(handle, reset_slow_warning_callback, slow_warning_reset_ms_, 0);
+    }
 
 }

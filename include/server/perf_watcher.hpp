@@ -16,6 +16,8 @@ namespace blyss::server
         bool show_slow_warning_ = true;
         std::uint64_t slow_warning_reset_ms_;
 
+        void show_message(std::uint64_t missed_ms);
+
     public:
         perf_watcher(uv_loop_t* loop, std::uint64_t ms_per_frame, std::uint64_t slow_warning_reset_ms);
 
