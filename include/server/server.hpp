@@ -16,8 +16,7 @@ namespace blyss::server
         void check_too_slow();
 
     public:
-        server(uv_loop_t* loop);
-        ~server();
+        explicit server(uv_loop_t* loop);
 
         server(const server&) = delete;
         server(server&&) = delete;

@@ -8,8 +8,6 @@ namespace blyss::server
     const uint64_t frame_leeway = 10;
     const uint64_t slow_warning_reset_ms = 5000;
 
-    int counter = 0;
-
     struct reset_slow_warning_scope
     {
         std::shared_ptr<server> server;
@@ -66,15 +64,6 @@ namespace blyss::server
     void server::frame()
     {
         check_too_slow();
-        spdlog::info("Frame!");
-
-        ++counter;
-        if (counter > 100)
-        {
-            spdlog::info("-------------Done!");
-            stop();
-            counter = 0;
-        }
     }
 
     void server::check_too_slow()
@@ -106,11 +95,4 @@ namespace blyss::server
         uv_timer_stop(frame_timer_.get());
         delete static_cast<timer_scope*>(frame_timer_->data);
     }
-
-    server::~server()
-    {
-        spdlog::info("Server destroyed!");
-    }
-
-
 }
