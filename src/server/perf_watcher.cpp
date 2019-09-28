@@ -15,11 +15,6 @@ namespace blyss::server
         uv_timer_init(loop_, &show_warning_timer_);
     }
 
-    perf_watcher::~perf_watcher()
-    {
-        spdlog::info("Perf_watcher destroyed!");
-    }
-
     void perf_watcher::start()
     {
         self_ptr_ = shared_from_this();
