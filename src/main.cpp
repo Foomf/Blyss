@@ -62,11 +62,7 @@ void wait_for_a_while(uv_idle_t* handle)
     handle->data = reinterpret_cast<void*>(counter);
 }
 
-#if defined(_WIN32) && defined(HIDE_CONSOLE)
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
-#else
 int main()
-#endif
 {
     const auto s = std::make_shared<server::server>(uv_default_loop());
     s->start();
