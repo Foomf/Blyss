@@ -6,6 +6,15 @@ namespace blyss::server
 {
     const uint64_t frame_leeway = 10;
 
+    void perf_watcher_timer_callback(uv_timer_t* handle)
+    {
+        const auto scope = *static_cast<std::weak_ptr<perf_watcher>*>(handle->data);
+        if (auto s = scope.lock())
+        {
+            s->reset();
+        }
+    }
+
     perf_watcher::perf_watcher(uv_loop_t* loop, std::uint64_t ms_per_frame, std::uint64_t slow_warning_reset_ms)
         : loop_{loop}
         , ms_per_frame_{ms_per_frame}
@@ -43,14 +52,7 @@ namespace blyss::server
     {
         spdlog::warn("Server is running {0:d} ms behind! Consider getting a faster cpu...", missed_ms);
         show_slow_warning_ = false;
-        uv_timer_start(&show_warning_timer_, [](uv_timer_t* handle)
-        {
-            const auto scope = static_cast<std::weak_ptr<perf_watcher>*>(handle->data);
-            if (auto s = (*scope).lock())
-            {
-                s->reset();
-            }
-        }, slow_warning_reset_ms_, 0);
+        uv_timer_start(&show_warning_timer_, perf_watcher_timer_callback, slow_warning_reset_ms_, 0);
     }
 
 }
