@@ -6,25 +6,25 @@ namespace blyss::server
 {
     const uint64_t frame_leeway = 10;
 
-    struct reset_slow_warning_scope
-    {
-        std::shared_ptr<perf_watcher> self;
-    };
-
-    void reset_slow_warning_callback(uv_timer_t* handle)
-    {
-        auto scope = static_cast<reset_slow_warning_scope*>(handle->data);
-        scope->self->reset();
-        delete handle;
-        delete scope;
-    }
-
     perf_watcher::perf_watcher(uv_loop_t* loop, std::uint64_t ms_per_frame, std::uint64_t slow_warning_reset_ms)
         : loop_{loop}
         , ms_per_frame_{ms_per_frame}
         , previous_time_{ uv_now(loop_) }
         , slow_warning_reset_ms_{slow_warning_reset_ms}
     {
+        uv_timer_init(loop_, &show_warning_timer_);
+    }
+
+    perf_watcher::~perf_watcher()
+    {
+        spdlog::info("Perf_watcher destroyed!");
+    }
+
+    void perf_watcher::start()
+    {
+        self_ptr_ = shared_from_this();
+        show_warning_timer_.data = static_cast<void*>(&self_ptr_);
+        reset();
     }
 
     void perf_watcher::update()
@@ -48,12 +48,14 @@ namespace blyss::server
     {
         spdlog::warn("Server is running {0:d} ms behind! Consider getting a faster cpu...", missed_ms);
         show_slow_warning_ = false;
-
-        const auto handle = new uv_timer_t;
-        uv_timer_init(loop_, handle);
-        const auto scope = new reset_slow_warning_scope{ shared_from_this() };
-        handle->data = static_cast<void*>(scope);
-        uv_timer_start(handle, reset_slow_warning_callback, slow_warning_reset_ms_, 0);
+        uv_timer_start(&show_warning_timer_, [](uv_timer_t* handle)
+        {
+            const auto scope = static_cast<std::weak_ptr<perf_watcher>*>(handle->data);
+            if (auto s = (*scope).lock())
+            {
+                s->reset();
+            }
+        }, slow_warning_reset_ms_, 0);
     }
 
 }
