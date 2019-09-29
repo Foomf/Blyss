@@ -17,7 +17,7 @@ namespace blyss::server
             cells_[x].reserve(height_);
             for (auto y = 0; y < height_; ++y)
             {
-                cells_[x].push_back(std::make_unique<cell>());
+                cells_[x].emplace_back();
             }
         }
     }
