@@ -65,11 +65,11 @@ void wait_for_a_while(uv_idle_t* handle)
 
 int main()
 {
-    auto m = server::map(10, 10);
+    //auto m = server::map(10, 10);
 
-    //const auto s = std::make_shared<server::server>(uv_default_loop());
-    //s->start();
-    //s->run_forever();
+    const auto s = std::make_shared<server::server>(uv_default_loop());
+    s->start();
+    s->run_forever();
 
     //uv_loop_t* loop = new uv_loop_t;
     //uv_loop_init(loop);

@@ -17,17 +17,16 @@ namespace blyss::server
 
     server::server(uv_loop_t* loop)
         : loop_{loop}
-        , frame_timer_{std::make_unique<uv_timer_t>()}
         , perf_watcher_{std::make_unique<perf_watcher>(loop_, ms_per_frame, 5000)}
     {
-        uv_timer_init(loop_, frame_timer_.get());
+        uv_timer_init(loop_, &frame_timer_);
     }
 
     void server::start()
     {
         self_ptr_ = shared_from_this();
-        frame_timer_->data = static_cast<void*>(&self_ptr_);
-        uv_timer_start(frame_timer_.get(), timer_callback, 0, ms_per_frame);
+        frame_timer_.data = static_cast<void*>(&self_ptr_);
+        uv_timer_start(&frame_timer_, timer_callback, 0, ms_per_frame + 20);
         perf_watcher_->start();
     }
 
@@ -46,8 +45,8 @@ namespace blyss::server
         perf_watcher_->update();
     }
 
-    void server::stop() const
+    void server::stop()
     {
-        uv_timer_stop(frame_timer_.get());
+        uv_timer_stop(&frame_timer_);
     }
 }

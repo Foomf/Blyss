@@ -11,9 +11,10 @@ namespace blyss::server
     class server : public std::enable_shared_from_this<server>
     {
         uv_loop_t* loop_;
-        std::unique_ptr<uv_timer_t> frame_timer_;
+        uv_timer_t frame_timer_;
         std::shared_ptr<perf_watcher> perf_watcher_;
         std::weak_ptr<server> self_ptr_;
+        
 
     public:
         explicit server(uv_loop_t* loop);
@@ -27,6 +28,6 @@ namespace blyss::server
         void run_frame() const;
         void run_forever() const;
         void start();
-        void stop() const;
+        void stop();
     };
 }
