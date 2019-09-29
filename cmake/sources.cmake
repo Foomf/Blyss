@@ -53,7 +53,7 @@ ADD_HDR(i_player server)
 # --------------------------------------------------------- #
 # client                                                    #
 # --------------------------------------------------------- #
-ADD_CLASS(client_player client)
+ADD_CLASS(local_client_player client)
 
 # --------------------------------------------------------- #
 # startup/menus                                             #

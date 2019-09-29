@@ -4,7 +4,7 @@
 
 namespace blyss::client
 {
-    class client_player : public server::i_player
+    class local_client_player : public server::i_player
     {
         
     };
