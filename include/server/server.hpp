@@ -9,16 +9,16 @@
 
 namespace blyss::server
 {
-    class server : public std::enable_shared_from_this<server>
+    class server
     {
         uv_loop_t* loop_;
         uv_timer_t frame_timer_{};
         perf_watcher perf_watcher_;
-        std::weak_ptr<server> self_ptr_;
         world world_{};
 
     public:
         explicit server(uv_loop_t* loop);
+        ~server();
 
         server(const server&) = delete;
         server(server&&) = delete;

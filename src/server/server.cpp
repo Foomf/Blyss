@@ -8,11 +8,8 @@ namespace blyss::server
 
     void timer_callback(uv_timer_t* handle)
     {
-        const auto data = *static_cast<std::weak_ptr<server>*>(handle->data);
-        if (auto s = data.lock())
-        {
-            s->frame();
-        }
+        const auto self = static_cast<server*>(handle->data);
+        self->frame();
     }
 
     server::server(uv_loop_t* loop)
@@ -22,10 +19,14 @@ namespace blyss::server
         uv_timer_init(loop_, &frame_timer_);
     }
 
+    server::~server()
+    {
+        uv_timer_stop(&frame_timer_);
+    }
+
     void server::start()
     {
-        self_ptr_ = shared_from_this();
-        frame_timer_.data = static_cast<void*>(&self_ptr_);
+        frame_timer_.data = static_cast<void*>(this);
         uv_timer_start(&frame_timer_, timer_callback, 0, ms_per_frame + 20);
         perf_watcher_.start();
     }
