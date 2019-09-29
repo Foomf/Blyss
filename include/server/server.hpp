@@ -5,6 +5,7 @@
 #include <uv.h>
 
 #include "server/perf_watcher.hpp"
+#include "server/world.hpp"
 
 namespace blyss::server
 {
@@ -14,7 +15,7 @@ namespace blyss::server
         uv_timer_t frame_timer_{};
         std::shared_ptr<perf_watcher> perf_watcher_;
         std::weak_ptr<server> self_ptr_;
-        
+        world world_{};
 
     public:
         explicit server(uv_loop_t* loop);
@@ -29,5 +30,6 @@ namespace blyss::server
         void run_forever() const;
         void start();
         void stop();
+        world& get_world();
     };
 }

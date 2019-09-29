@@ -26,7 +26,7 @@ namespace blyss::server
     {
         self_ptr_ = shared_from_this();
         frame_timer_.data = static_cast<void*>(&self_ptr_);
-        uv_timer_start(&frame_timer_, timer_callback, 0, ms_per_frame + 20);
+        uv_timer_start(&frame_timer_, timer_callback, 0, ms_per_frame);
         perf_watcher_->start();
     }
 
@@ -48,5 +48,10 @@ namespace blyss::server
     void server::stop()
     {
         uv_timer_stop(&frame_timer_);
+    }
+
+    world& server::get_world()
+    {
+        return world_;
     }
 }

@@ -67,7 +67,9 @@ int main()
 {
     //auto m = server::map(10, 10);
 
+    auto map = std::make_unique<blyss::server::map>(10, 10);
     const auto s = std::make_shared<server::server>(uv_default_loop());
+    s->get_world().add_map("default", std::move(map));
     s->start();
     s->run_forever();
 
