@@ -34,6 +34,7 @@
 #include "startup/menus/main_menu.hpp"
 #include "utils/curses/curses_state.hpp"
 #include "server/server.hpp"
+#include "server/map.hpp"
 
 using namespace blyss;
 
@@ -64,9 +65,11 @@ void wait_for_a_while(uv_idle_t* handle)
 
 int main()
 {
-    const auto s = std::make_shared<server::server>(uv_default_loop());
-    s->start();
-    s->run_forever();
+    auto m = server::map(10, 10);
+
+    //const auto s = std::make_shared<server::server>(uv_default_loop());
+    //s->start();
+    //s->run_forever();
 
     //uv_loop_t* loop = new uv_loop_t;
     //uv_loop_init(loop);
@@ -83,9 +86,9 @@ int main()
     //delete loop;
 
 
-    //auto curses = std::make_shared<utils::curses::curses_state>();
-    //auto main = startup::menus::main_menu(curses);
-    //main.show();
+    // auto curses = std::make_shared<utils::curses::curses_state>();
+    // auto main = startup::menus::main_menu(curses);
+    // main.show();
 
     //    const glfw_state glfw_state;
     //
