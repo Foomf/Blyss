@@ -8,11 +8,8 @@ namespace blyss::server
 
     void perf_watcher_timer_callback(uv_timer_t* handle)
     {
-        const auto scope = *static_cast<std::weak_ptr<perf_watcher>*>(handle->data);
-        if (auto s = scope.lock())
-        {
-            s->reset();
-        }
+        const auto self = static_cast<perf_watcher*>(handle->data);
+        self->reset();
     }
 
     perf_watcher::perf_watcher(uv_loop_t* loop, std::uint64_t ms_per_frame, std::uint64_t slow_warning_reset_ms)
@@ -24,10 +21,14 @@ namespace blyss::server
         uv_timer_init(loop_, &show_warning_timer_);
     }
 
+    perf_watcher::~perf_watcher()
+    {
+        uv_timer_stop(&show_warning_timer_);
+    }
+
     void perf_watcher::start()
     {
-        self_ptr_ = shared_from_this();
-        show_warning_timer_.data = static_cast<void*>(&self_ptr_);
+        show_warning_timer_.data = static_cast<void*>(this);
         reset();
     }
 
