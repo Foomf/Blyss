@@ -34,5 +34,6 @@ namespace blyss::server
         void start();
         void stop();
         world& get_world();
+        void add_player(std::unique_ptr<i_player> player);
     };
 }
