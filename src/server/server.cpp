@@ -27,7 +27,7 @@ namespace blyss::server
     void server::start()
     {
         frame_timer_.data = static_cast<void*>(this);
-        uv_timer_start(&frame_timer_, timer_callback, 0, ms_per_frame + 20);
+        uv_timer_start(&frame_timer_, timer_callback, 0, ms_per_frame);
         perf_watcher_.start();
     }
 
