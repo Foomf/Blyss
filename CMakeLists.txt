@@ -29,6 +29,7 @@ include(cmake/lib/pdcurses.cmake)
 include(cmake/lib/spdlog.cmake)
 include(cmake/lib/stb.cmake)
 include(cmake/lib/libuv.cmake)
+include(cmake/lib/cli11.cmake)
 
 # --------------------------------------------------------- #
 # Include sources                                           #
@@ -72,4 +73,5 @@ target_link_libraries(${PROG_NAME}
     ${PDCURSES_LIB}
     ${LIBUV_LIB}
     ${GLM_LIB}
+    CLI11
 )
