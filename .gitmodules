@@ -22,3 +22,6 @@
 [submodule "lib/libuv"]
 	path = lib/libuv
 	url = git@github.com:libuv/libuv.git
+[submodule "lib/CLI11"]
+	path = lib/CLI11
+	url = git@github.com:CLIUtils/CLI11.git
