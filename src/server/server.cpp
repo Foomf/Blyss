@@ -56,9 +56,9 @@ namespace blyss::server
         return world_;
     }
 
-    void server::add_player(std::unique_ptr<i_player> player)
+    void server::add_client(std::unique_ptr<i_client> client)
     {
-        players_.emplace_back(std::move(player));
+        clients_.emplace_back(std::move(client));
     }
 
 }

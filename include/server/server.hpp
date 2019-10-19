@@ -7,7 +7,7 @@
 
 #include "server/perf_watcher.hpp"
 #include "server/world.hpp"
-#include "server/i_player.hpp"
+#include "server/i_client.hpp"
 
 namespace blyss::server
 {
@@ -17,7 +17,7 @@ namespace blyss::server
         uv_timer_t frame_timer_{};
         perf_watcher perf_watcher_;
         world world_{};
-        std::vector<std::unique_ptr<i_player>> players_;
+        std::vector<std::unique_ptr<i_client>> clients_;
 
     public:
         explicit server(uv_loop_t* loop);
@@ -34,6 +34,6 @@ namespace blyss::server
         void start();
         void stop();
         world& get_world();
-        void add_player(std::unique_ptr<i_player> player);
+        void add_client(std::unique_ptr<i_client> client);
     };
 }
