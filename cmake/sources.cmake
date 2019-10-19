@@ -48,10 +48,14 @@ ADD_CLASS(perf_watcher server)
 ADD_CLASS(world server)
 ADD_CLASS(map server)
 ADD_CLASS(cell server)
+ADD_HDR(i_client server)
+ADD_CLASS(local_client server)
 
 # --------------------------------------------------------- #
 # client                                                    #
 # --------------------------------------------------------- #
+ADD_HDR(i_server client)
+ADD_CLASS(local_server client)
 
 # --------------------------------------------------------- #
 # startup/menus                                             #
