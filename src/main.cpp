@@ -67,11 +67,11 @@ int main()
 {
     //auto m = server::map(10, 10);
 
-    auto map = std::make_unique<blyss::server::map>(10, 10);
-    auto s = server::server(uv_default_loop());
-    s.get_world().add_map("default", std::move(map));
-    s.start();
-    s.run_forever();
+    //auto map = std::make_unique<blyss::server::map>(10, 10);
+    //auto s = server::server(uv_default_loop());
+    //s.get_world().add_map("default", std::move(map));
+    //s.start();
+    //s.run_forever();
 
     //uv_loop_t* loop = new uv_loop_t;
     //uv_loop_init(loop);
